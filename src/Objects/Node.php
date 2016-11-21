@@ -36,17 +36,6 @@ class Node
 	private $children;
 	
 	/**
-	 * Return a Node object instance built with the DOMNode object given.
-	 * 
-	 * @param \DOMNode $node : The DOMNode with name NODE_NODENAME to be representend in an object.
-	 * 
-	 * @return An instance of this class.
-	 */
-	public static function buildFromNode(\DOMNode $node) {
-		return new Node($node);
-	}
-	
-	/**
 	 * Build the Node object and all its children followinf the given DOMNode object.
 	 * 
 	 * @param \DOMNode $node : The DOMNode with name NODE_NODENAME to be representend in an object.
@@ -84,7 +73,7 @@ class Node
 		$this->children = new NodeList();
 		foreach($node->childNodes as $child) {
 			if($child->nodeName === self::NODE_NODENAME) {
-				$this->children->add(self::buildFromNode($child));
+				$this->children->add(new Node($child));
 			}
 			elseif($child->nodeName === self::FONT_NODENAME) {
 				$fillAttributes($node->attributes, self::$fontAvailableAttributes);
