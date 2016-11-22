@@ -153,6 +153,10 @@ class Node
 		return $this->text;
 	}
 	
+	public function setText($text) {
+		$this->text = htmlentities($text);
+	}
+	
 	/**
 	 * Return the font name of the current node.
 	 * 
