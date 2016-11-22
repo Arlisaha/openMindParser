@@ -2,6 +2,8 @@
 
 namespace openMindParser\Objects;
 
+use \DOMNode;
+use \DOMNamedNodeMap;
 use openMindParser\Exceptions\InvalidNodeNameException;
 
 class Node 
@@ -40,7 +42,7 @@ class Node
 	 * 
 	 * @param \DOMNode $node : The DOMNode with name NODE_NODENAME to be representend in an object.
 	 */
-	public function __construct(\DOMNode $node = null) {
+	public function __construct(DOMNode $node = null) {
 		if(!empty($node)) {
 			$this->setAllAttributesFromNode($node);
 		}
@@ -51,14 +53,14 @@ class Node
 	 * 
 	 * @param \DOMNode $node : The DOMNode with name NODE_NODENAME to be representend in an object.
 	 */
-	public function setAllAttributesFromNode(\DOMNode $node) {
+	public function setAllAttributesFromNode(DOMNode $node) {
 		/*The given node name must be self::NODE_NODENAME*/
 		if($node->nodeName !== self::NODE_NODENAME) {
 			throw new InvalidNodeNameException('The node name must be "node". "'.$node->nodeName.'" given.');
 		}
 		
 		/*For each attribute whom the name is the keys of $availableAttributes, its value will be put in the matching attribute.*/
-		$fillAttributes = function(\DOMNamedNodeMap $nodeAtributes, array $availableAttributes) {
+		$fillAttributes = function(DOMNamedNodeMap $nodeAtributes, array $availableAttributes) {
 			foreach($nodeAtributes as $attribute) {
 				if(array_key_exists($attribute->nodeName, $availableAttributes)) {
 					$this->$availableAttributes[$attribute->nodeName] = $attribute->nodeValue;
