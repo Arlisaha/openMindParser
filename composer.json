@@ -2,5 +2,25 @@
     "name": "yanndi-serio/open-mind-parser",
     "description": "A parser for \".mm\" files (openMind format) to build objects out of it in order to then draw it or export it in another format.",
     "type": "library",
-    "require": {}
+    "license": "MIT",
+    "homepage": "https://github.com/YannDi-Serio/openMindParser",
+    "authors": [
+        {
+            "name": "YannDi-Serio",
+            "email": "diserio.yann@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "openMindParser\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-1": {
+            "openMindParser\\Tests": "tests/"
+        }
+    } 
 }
