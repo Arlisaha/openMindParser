@@ -9,6 +9,7 @@ use \DOMDocument;
 use \DOMElement;
 use \DOMNamedNodeMap;
 
+/*The class responsible to build the objects tree representing the openMind document.*/
 class Parser
 {
 	const NODE_NODENAME = 'node';
@@ -28,6 +29,13 @@ class Parser
 		'SIZE' => 'fontSize',
 	];
 	
+	/**
+	 * Build the document tree (all objects) out of the file given in parameter.
+	 * 
+	 * @param String $filePath : The path to the openMind file.
+	 * 
+	 * @return Document : The document instance with all its nodes instances.
+	 */
 	public static function buildDocumentTreeFromFilePath($filePath) {
 		if(!file_exists($filePath)) {
 			throw new \InvalidArgumentException('The given path : "'.$filePath.'" is invalid.');
@@ -42,6 +50,13 @@ class Parser
 		return new Document($domDocument, $rootNode, $filePath, basename($filePath), filesize($filePath));
 	}
 	
+	/**
+	 * Create and fill the node instance with all the data stored in the XML file
+	 * 
+	 * @param DOMElement $domNode : The current XML 'node' element to build the Node object.
+	 * 
+	 * @return Node : The created Node (and all its children).
+	 */
 	private static function fillNode(DOMElement $domNode) {
 		//The given node name must be self::NODE_NODENAME
 		if($domNode->nodeName !== self::NODE_NODENAME) {
@@ -52,7 +67,7 @@ class Parser
 		
 		self::fillNodeAttributes($domNode->attributes, self::$nodeAvailableAttributes, $node);
 		
-		/*Build the list of children nodes and fill font information.*/
+		//Build the list of children nodes and fill font information.
 		$children = new NodeList();
 		foreach($domNode->childNodes as $childNode) {
 			if($childNode->nodeName === self::NODE_NODENAME) {
@@ -68,7 +83,13 @@ class Parser
 		return $node;
 	}
 	
-	/*For each attribute whom the name is the keys of $availableAttributes, its value will be put in the matching attribute.*/
+	/**
+	 * For each attribute whom the name is the keys of $availableAttributes, its value will be put in the matching attribute.
+	 * 
+	 * @param DOMNamedNodeMap $nodeAttributes : The list of attributes of the current node to fill the Node object.
+	 * @param array $availableAttributes : One of the static array of this class to describe the list of known attributes.
+	 * @param Node $node : The Node object to fill in.
+	 */
 	private static function fillNodeAttributes (DOMNamedNodeMap $nodeAtributes, array $availableAttributes, Node $node) {
 		foreach($nodeAtributes as $attribute) {
 			if(array_key_exists($attribute->nodeName, $availableAttributes)) {
