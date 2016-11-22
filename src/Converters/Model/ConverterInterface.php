@@ -1,6 +1,6 @@
 <?php
 
-namespace openMindParser\Converters;
+namespace openMindParser\Converters\Model;
 
 interface ConverterInterface
 {
