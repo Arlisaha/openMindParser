@@ -36,9 +36,10 @@ class Node
 	private $fontName;
 	private $fontSize;
 	private $children;
+	private $domNode;
 	
 	/**
-	 * Build the Node object and all its children followinf the given DOMNode object.
+	 * Build the Node object and all its children following the given DOMNode object.
 	 * 
 	 * @param \DOMNode $node : The DOMNode with name NODE_NODENAME to be representend in an object.
 	 */
@@ -59,22 +60,23 @@ class Node
 			throw new InvalidNodeNameException('The node name must be "node". "'.$node->nodeName.'" given.');
 		}
 		
-		/*For each attribute whom the name is the keys of $availableAttributes, its value will be put in the matching attribute.*/
+		$this->domNode = $node;
+		
+				/*For each attribute whom the name is the keys of $availableAttributes, its value will be put in the matching attribute.*/
 		$fillAttributes = function(DOMNamedNodeMap $nodeAtributes, array $availableAttributes) {
 			foreach($nodeAtributes as $attribute) {
 				if(array_key_exists($attribute->nodeName, $availableAttributes)) {
 					$this->$availableAttributes[$attribute->nodeName] = $attribute->nodeValue;
 				}
 			}
-		}
-		
+		};
 		
 		$fillAttributes($node->attributes, self::$nodeAvailableAttributes);
 		
 		/*Build the list of children nodes and fill font information.*/
 		$this->children = new NodeList();
 		foreach($node->childNodes as $child) {
-			if($child->nodeName === self::NODE_NODENAME) {
+			if($buildTree && $child->nodeName === self::NODE_NODENAME) {
 				$this->children->add(new Node($child));
 			}
 			elseif($child->nodeName === self::FONT_NODENAME) {
