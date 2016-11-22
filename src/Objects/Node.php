@@ -8,23 +8,6 @@ use openMindParser\Exceptions\InvalidNodeNameException;
 
 class Node 
 {
-	const NODE_NODENAME = 'node';
-	private static $nodeAvailableAttributes = [
-		'ID'       => 'id',
-		'COLOR'    => 'color',
-		'CREATED'  => 'created',
-		'MODIFIED' => 'modified',
-		'POSITION' => 'position',
-		'VSHIFT'   => 'vshift',
-		'FOLDED'   => 'folded',
-		'TEXT'     => 'text',
-	];
-	const FONT_NODENAME = 'font';
-	private static $fontAvailableAttributes = [
-		'NAME' => 'fontName',
-		'SIZE' => 'fontSize',
-	];
-	
 	private $id;
 	private $color;
 	private $created;
@@ -43,46 +26,19 @@ class Node
 	 * 
 	 * @param \DOMNode $node : The DOMNode with name NODE_NODENAME to be representend in an object.
 	 */
-	public function __construct(DOMNode $node = null) {
-		if(!empty($node)) {
-			$this->setAllAttributesFromNode($node);
-		}
-	}
-	
-	/**
-	 * Fill all class attributes according to the data stored in the given DOMNode instance.
-	 * 
-	 * @param \DOMNode $node : The DOMNode with name NODE_NODENAME to be representend in an object.
-	 */
-	public function setAllAttributesFromNode(DOMNode $node) {
-		/*The given node name must be self::NODE_NODENAME*/
-		if($node->nodeName !== self::NODE_NODENAME) {
-			throw new InvalidNodeNameException('The node name must be "node". "'.$node->nodeName.'" given.');
-		}
-		
-		$this->domNode = $node;
-		
-				/*For each attribute whom the name is the keys of $availableAttributes, its value will be put in the matching attribute.*/
-		$fillAttributes = function(DOMNamedNodeMap $nodeAtributes, array $availableAttributes) {
-			foreach($nodeAtributes as $attribute) {
-				if(array_key_exists($attribute->nodeName, $availableAttributes)) {
-					$this->$availableAttributes[$attribute->nodeName] = $attribute->nodeValue;
-				}
-			}
-		};
-		
-		$fillAttributes($node->attributes, self::$nodeAvailableAttributes);
-		
-		/*Build the list of children nodes and fill font information.*/
-		$this->children = new NodeList();
-		foreach($node->childNodes as $child) {
-			if($buildTree && $child->nodeName === self::NODE_NODENAME) {
-				$this->children->add(new Node($child));
-			}
-			elseif($child->nodeName === self::FONT_NODENAME) {
-				$fillAttributes($node->attributes, self::$fontAvailableAttributes);
-			}
-		}
+	public function __construct(DOMNode $domNode = null, NodeList $children = null, $id = null, $color = null, $created = null, $modified = null, $position = null, $vshift = null, $folded = null, $text = null, $fontName = null, $fontSize = null) {
+		$this->id = $id;
+		$this->color = $color;
+		$this->created = $created;
+		$this->modified = $modified;
+		$this->position = $position;
+		$this->vshift = $vshift;
+		$this->folded = $folded;
+		$this->text = $text;
+		$this->fontName = $fontName;
+		$this->fontSize = $fontSize;
+		$this->children = $children;
+		$this->domNode = $domNode;
 	}
 	
 	/**
@@ -94,6 +50,10 @@ class Node
 		return $this->id;
 	}
 	
+	public function setId($id) {
+		$this->id = $id;
+	}
+	
 	/**
 	 * Return the color of the current node.
 	 * 
@@ -101,6 +61,10 @@ class Node
 	 */
 	public function getColor() {
 		return $this->color;
+	}
+	
+	public function setColor($color) {
+		$this->color = $color;
 	}
 	
 	/**
@@ -112,6 +76,10 @@ class Node
 		return $this->created;
 	}
 	
+	public function setCreated($created) {
+		$this->created = $created;
+	}
+	
 	/**
 	 * Return the modified timestamp of the current node.
 	 * 
@@ -119,6 +87,10 @@ class Node
 	 */
 	public function getModified() {
 		return $this->modified;
+	}
+	
+	public function setModified($modified) {
+		$this->modified = $modified;
 	}
 	
 	/**
@@ -130,6 +102,10 @@ class Node
 		return $this->position;
 	}
 	
+	public function setPosition($position) {
+		$this->position = $position;
+	}
+	
 	/**
 	 * Return the vshift value of the current node.
 	 * 
@@ -139,6 +115,10 @@ class Node
 		return $this->vshift;
 	}
 	
+	public function setVshift($vshift) {
+		$this->vshift = $vshift;
+	}
+	
 	/**
 	 * Return if the current node is folded or not.
 	 * 
@@ -146,6 +126,10 @@ class Node
 	 */
 	public function isFolded() {
 		return $this->folded;
+	}
+	
+	public function setFolded($folded) {
+		$this->folded = $folded;
 	}
 	
 	/**
@@ -170,6 +154,10 @@ class Node
 		return $this->fontName;
 	}
 	
+	public function setFontName($fontName) {
+		$this->fontName = $fontName;
+	}
+	
 	/**
 	 * Return the font size of the current node.
 	 * 
@@ -179,6 +167,10 @@ class Node
 		return $this->fontSize;
 	}
 	
+	public function setFontSize($fontSize) {
+		$this->fontSize = $fontSize;
+	}
+	
 	/**
 	 * Return the list of children of the current node.
 	 * 
@@ -186,5 +178,9 @@ class Node
 	 */
 	public function getChildren() {
 		return $this->children;
+	}
+	
+	public function setChildren(NodeList $children) {
+		$this->children = $children;
 	}
 }
