@@ -8,11 +8,7 @@ use openMindParser\Parser;
 
 abstract class AbstractHTMLConverter extends AbstractConverter
 {
-	public static function convertFromFile($filePath) {
-		return self::convertFromDocumentInstance(Parser::buildDocumentTreeFromFilePath($filePath));
-	}
-	
-	public static function convertFromDocumentInstance(Document $document) {
+	public static function convertFromDocumentInstance(Document $document, array $options = []) {
 		
 	}
 	

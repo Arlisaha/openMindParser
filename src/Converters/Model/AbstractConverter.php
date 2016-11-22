@@ -7,9 +7,9 @@ use openMindParser\Parser;
 
 abstract class AbstractConverter implements ConverterInterface
 {
-	public static function convertFromFile($filePath) {
-		return self::convertFromDocumentInstance(Parser::buildDocumentTreeFromFilePath($filePath));
+	public static function convertFromFile($filePath, array $options = []) {
+		return self::convertFromDocumentInstance(Parser::buildDocumentTreeFromFilePath($filePath), $options = []);
 	}
 	
-	public static function convertFromDocumentInstance(Document $document);
+	public static function convertFromDocumentInstance(Document $document, array $options = []);
 }
