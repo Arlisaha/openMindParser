@@ -8,6 +8,9 @@ use openMindParser\Objects\Node;
 use openMindParser\Parser;
 use \DOMDocument;
 
+/**
+ * A singleton to convert a document tree (object Document) in a HTML tree following few options.
+ */
 class GenericHTMLConverter extends AbstractConverter
 {
 	const TAG_KEY = 'tag';
@@ -24,11 +27,11 @@ class GenericHTMLConverter extends AbstractConverter
 	private function buildHTMLTreeFromNode(DOMDocument $document, Node $node, array $options) {
 		$domElementA = $this->buildElement($document, $options[0]);
 		
-		$options[1][self::ATTRIBUTES_KEY] = array_merge([
+		$options[1][self::ATTRIBUTES_KEY] = array_merge([$options[1]['attributes'], 
 			'style' => 'color:'.$node->getColor().';'.
 					   ($node->getFontName() ? 'font-family:'.$node->getFontName().';' : '').
 					   ($node->getFontSize() ? 'font-size:'.$node->getFontSize().';' : ''),
-			], $options[1]['attributes']);
+			]);
 		$domElementB = $this->buildElement($document, $options[1]);
 		
 		$text = $node->getText();
