@@ -1,12 +1,12 @@
 <?php
 
-namespace openMindParser\Tests;
+namespace openMindParser\Tests\Usage;
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../../vendor/autoload.php';
 
 use openMindParser\Parser;
 
-$filePath = __DIR__.'/TestFile/Conduite_agressive.mm';
+$filePath = __DIR__.'/../TestFile/Conduite_agressive.mm';
 
 $doc = Parser::getInstance();
 $doc = $doc->buildDocumentTreeFromFilePath($filePath);
