@@ -2,6 +2,8 @@
 
 namespace openMindParser\Objects;
 
+use \InvalidArgumentException;
+
 class NodeList implements \IteratorAggregate
 {
 	/**
