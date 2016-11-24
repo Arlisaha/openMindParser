@@ -10,7 +10,7 @@ use \InvalidArgumentException;
 abstract class AbstractConverter extends AbstractSingleton implements ConverterInterface
 {
 	public function convert($data, $options = []) {
-		if(!is_string($data) || !($data instanceof Document)) {
+		if(!is_string($data) && !($data instanceof Document)) {
 			throw new InvalidArgumentException('The $data variable must be of type "string" (the file path), or an instance of "Document".');
 		}
 		elseif(!is_array($options)) {
@@ -18,10 +18,11 @@ abstract class AbstractConverter extends AbstractSingleton implements ConverterI
 		}
 		
 		if(is_string($data)) {
-			$document = Parser::buildDocumentTreeFromFilePath($filePath);	
+			$parser = Parser::getInstance();
+			$data = $parser->buildDocumentTreeFromFilePath($data);	
 		}
 		
-		return $this->convertFromDocumentInstance($document, $options);
+		return $this->convertFromDocumentInstance($data, $options);
 	}
 	
 	abstract protected function convertFromDocumentInstance(Document $document, array $options);
