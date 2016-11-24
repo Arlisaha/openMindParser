@@ -4,5 +4,5 @@ namespace openMindParser\Converters\Model;
 
 interface ConverterInterface
 {
-	public static function convert($data, $options = []);
+	public function convert($data, $options = []);
 }

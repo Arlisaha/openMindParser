@@ -2,13 +2,14 @@
 
 namespace openMindParser\Converters\Model;
 
+use openMindParser\Patterns\AbstractSingleton;
 use openMindParser\Objects\Document;
 use openMindParser\Parser;
 use \InvalidArgumentException;
 
-abstract class AbstractConverter implements ConverterInterface
+abstract class AbstractConverter extends AbstractSingleton implements ConverterInterface
 {
-	public static function convert($data, $options = []) {
+	public function convert($data, $options = []) {
 		if(!is_string($data) || !($data instanceof Document)) {
 			throw new InvalidArgumentException('The $data variable must be of type "string" (the file path), or an instance of "Document".');
 		}
@@ -20,8 +21,8 @@ abstract class AbstractConverter implements ConverterInterface
 			$document = Parser::buildDocumentTreeFromFilePath($filePath);	
 		}
 		
-		return self::convertFromDocumentInstance($document, $options);
+		return $this->convertFromDocumentInstance($document, $options);
 	}
 	
-	private static function convertFromDocumentInstance(Document $document, array $options);
+	abstract protected function convertFromDocumentInstance(Document $document, array $options);
 }
