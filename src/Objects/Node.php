@@ -133,11 +133,20 @@ class Node
 	}
 	
 	/**
-	 * Return the text of the current node.
+	 * Return the text of the current node with html entities decoded.
 	 * 
 	 * @param String $text : The node text value.
 	 */
 	public function getText() {
+		return html_entity_decode($this->text);
+	}
+	
+	/**
+	 * Return the text of the current node.
+	 * 
+	 * @param String $text : The node text value.
+	 */
+	public function getRawText() {
 		return $this->text;
 	}
 	
