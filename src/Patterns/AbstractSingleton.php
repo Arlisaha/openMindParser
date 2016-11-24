@@ -4,14 +4,16 @@ namespace openMindParser\Patterns;
 
 abstract class AbstractSingleton
 {
-	protected static $instance;
+	private static $instance = [];
 	
 	public static function getInstance() {
-		if(self::$instance == null) {
-            $class = get_called_class();
-            self::$instance = new $class;
-        }
-        return self::$instance;
+		$class = get_called_class();
+		
+		if (!isset(self::$instance[$class])) {
+			self::$instance[$class] = new $class;
+		}
+		
+		return self::$instance[$class];
 	}
 	
 	protected function __construct(){}
