@@ -64,4 +64,13 @@ class Document
 	public function setRootNode($rootNode) {
 		$this->rootNode = $rootNode;
 	}
+	
+	/**
+	 * To String method.
+	 * 
+	 * @return String : The name of the file.
+	 */
+	public function __toString() {
+		return $this->getName();
+	}
 }

@@ -183,4 +183,13 @@ class Node
 	public function setChildren(NodeList $children) {
 		$this->children = $children;
 	}
+	
+	/**
+	 * To String method.
+	 * 
+	 * @return String : The text content of the node.
+	 */
+	public function __toString() {
+		return $this->getText();
+	}
 }
