@@ -3,6 +3,7 @@
 namespace openMindParser\Objects;
 
 use \InvalidArgumentException;
+use \ArrayIterator;
 
 class NodeList implements \IteratorAggregate
 {
