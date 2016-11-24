@@ -2,6 +2,7 @@
 
 namespace openMindParser;
 
+use openMindParser\Patterns\AbstractSingleton;
 use openMindParser\Objects\Document;
 use openMindParser\Objects\Node;
 use openMindParser\Objects\NodeList;
@@ -10,7 +11,7 @@ use \DOMElement;
 use \DOMNamedNodeMap;
 
 /*The class responsible to build the objects tree representing the openMind document.*/
-class Parser
+class Parser extends AbstractSingleton
 {
 	const NODE_NODENAME = 'node';
 	private static $nodeAvailableAttributes = [
@@ -36,7 +37,7 @@ class Parser
 	 * 
 	 * @return Document : The document instance with all its nodes instances.
 	 */
-	public static function buildDocumentTreeFromFilePath($filePath) {
+	public function buildDocumentTreeFromFilePath($filePath) {
 		if(!file_exists($filePath)) {
 			throw new \InvalidArgumentException('The given path : "'.$filePath.'" is invalid.');
 		}
@@ -45,7 +46,7 @@ class Parser
 		$domDocument->load($filePath);
 		
 		//Get the first node named 'self::NODE_NODENAME' and make a Node object out of it.
-		$rootNode = self::fillNode($domDocument->getElementsByTagName(self::NODE_NODENAME)->item(0));
+		$rootNode = $this->fillNode($domDocument->getElementsByTagName(self::NODE_NODENAME)->item(0));
 		
 		return new Document($domDocument, $rootNode, $filePath, basename($filePath), filesize($filePath));
 	}
@@ -57,7 +58,7 @@ class Parser
 	 * 
 	 * @return Node : The created Node (and all its children).
 	 */
-	private static function fillNode(DOMElement $domNode) {
+	private function fillNode(DOMElement $domNode) {
 		//The given node name must be self::NODE_NODENAME
 		if($domNode->nodeName !== self::NODE_NODENAME) {
 			throw new InvalidNodeNameException('The node name must be "node". "'.$domNode->nodeName.'" given.');
@@ -65,16 +66,16 @@ class Parser
 		
 		$node = new Node();
 		
-		self::fillNodeAttributes($domNode->attributes, self::$nodeAvailableAttributes, $node);
+		$this->fillNodeAttributes($domNode->attributes, self::$nodeAvailableAttributes, $node);
 		
 		//Build the list of children nodes and fill font information.
 		$children = new NodeList();
 		foreach($domNode->childNodes as $childNode) {
 			if($childNode->nodeName === self::NODE_NODENAME) {
-				$children->add(self::fillNode($childNode));
+				$children->add($this->fillNode($childNode));
 			}
 			elseif($childNode->nodeName === self::FONT_NODENAME) {
-				self::fillNodeAttributes($domNode->attributes, self::$fontAvailableAttributes, $node);
+				$this->fillNodeAttributes($domNode->attributes, self::$fontAvailableAttributes, $node);
 			}
 		}
 		
@@ -90,7 +91,7 @@ class Parser
 	 * @param array $availableAttributes : One of the static array of this class to describe the list of known attributes.
 	 * @param Node $node : The Node object to fill in.
 	 */
-	private static function fillNodeAttributes (DOMNamedNodeMap $nodeAtributes, array $availableAttributes, Node $node) {
+	private function fillNodeAttributes (DOMNamedNodeMap $nodeAtributes, array $availableAttributes, Node $node) {
 		foreach($nodeAtributes as $attribute) {
 			if(array_key_exists($attribute->nodeName, $availableAttributes)) {
 				call_user_func([$node, sprintf('openMindParser\Objects\Node::set%s', ucfirst($availableAttributes[$attribute->nodeName]))], $attribute->nodeValue);

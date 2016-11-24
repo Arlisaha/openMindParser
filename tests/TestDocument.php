@@ -8,7 +8,8 @@ use openMindParser\Parser;
 
 $filePath = __DIR__.'/TestFile/Conduite_agressive.mm';
 
-$doc = Parser::buildDocumentTreeFromFilePath($filePath);
+$doc = Parser::getInstance();
+$doc = $doc->buildDocumentTreeFromFilePath($filePath);
 
 echo('<pre>');
 var_dump($doc);
