@@ -1,6 +1,6 @@
 <?php
 
-namespace openMindParser\Exceptions;
+namespace OpenMindParser\Exceptions;
 
 use \Exception;
 

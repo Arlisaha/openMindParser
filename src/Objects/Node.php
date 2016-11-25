@@ -1,10 +1,10 @@
 <?php
 
-namespace openMindParser\Objects;
+namespace OpenMindParser\Objects;
 
 use \DOMNode;
 use \DOMNamedNodeMap;
-use openMindParser\Exceptions\InvalidNodeNameException;
+use OpenMindParser\Exceptions\InvalidNodeNameException;
 
 /*Object that represent a Node as the tag element in the openMind file.*/
 class Node 

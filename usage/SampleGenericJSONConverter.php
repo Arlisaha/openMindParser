@@ -1,11 +1,11 @@
 <?php
 
-namespace openMindParser\Usage;
+namespace OpenMindParser\Usage;
 
 require __DIR__.'/../vendor/autoload.php';
 
-use openMindParser\Parser;
-use openMindParser\Converters\JSON\GenericJSONConverter;
+use OpenMindParser\Parser;
+use OpenMindParser\Converters\JSON\GenericJSONConverter;
 
 $filePath = __DIR__.'/../tests/TestFile/Conduite_agressive.mm';
 

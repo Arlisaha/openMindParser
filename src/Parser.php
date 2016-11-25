@@ -1,11 +1,11 @@
 <?php
 
-namespace openMindParser;
+namespace OpenMindParser;
 
-use openMindParser\Patterns\AbstractSingleton;
-use openMindParser\Objects\Document;
-use openMindParser\Objects\Node;
-use openMindParser\Objects\NodeList;
+use OpenMindParser\Patterns\AbstractSingleton;
+use OpenMindParser\Objects\Document;
+use OpenMindParser\Objects\Node;
+use OpenMindParser\Objects\NodeList;
 use \DOMDocument;
 use \DOMElement;
 use \DOMNamedNodeMap;

@@ -18,13 +18,13 @@
     },
     "autoload": {
         "psr-4": {
-            "openMindParser\\": "src/"
+            "OpenMindParser\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-1": {
-            "openMindParser\\Tests": "tests/",
-            "openMindParser\\Usage": "usage/"
+            "OpenMindParser\\Tests": "tests/",
+            "OpenMindParser\\Usage": "usage/"
         }
     } 
 }

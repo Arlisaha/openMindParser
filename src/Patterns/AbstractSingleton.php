@@ -1,6 +1,6 @@
 <?php
 
-namespace openMindParser\Patterns;
+namespace OpenMindParser\Patterns;
 
 /*An abstract class to extend in order to create Singleton. Stores all unique instance in an array, and return it when asked.*/
 abstract class AbstractSingleton

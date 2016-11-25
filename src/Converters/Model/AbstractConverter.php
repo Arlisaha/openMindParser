@@ -1,10 +1,10 @@
 <?php
 
-namespace openMindParser\Converters\Model;
+namespace OpenMindParser\Converters\Model;
 
-use openMindParser\Patterns\AbstractSingleton;
-use openMindParser\Objects\Document;
-use openMindParser\Parser;
+use OpenMindParser\Patterns\AbstractSingleton;
+use OpenMindParser\Objects\Document;
+use OpenMindParser\Parser;
 use \InvalidArgumentException;
 
 /*Abstract singleton to help write converters.*/

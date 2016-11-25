@@ -1,6 +1,6 @@
 <?php
 
-namespace openMindParser\Objects;
+namespace OpenMindParser\Objects;
 
 use \DOMDocument;
 

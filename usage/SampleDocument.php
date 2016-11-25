@@ -1,10 +1,10 @@
 <?php
 
-namespace openMindParser\Usage;
+namespace OpenMindParser\Usage;
 
 require __DIR__.'/../vendor/autoload.php';
 
-use openMindParser\Parser;
+use OpenMindParser\Parser;
 
 $filePath = __DIR__.'/../tests/TestFile/Conduite_agressive.mm';
 

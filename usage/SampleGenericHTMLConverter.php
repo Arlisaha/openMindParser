@@ -1,11 +1,11 @@
 <?php
 
-namespace openMindParser\Usage;
+namespace OpenMindParser\Usage;
 
 require __DIR__.'/../vendor/autoload.php';
 
-use openMindParser\Parser;
-use openMindParser\Converters\HTML\GenericHTMLConverter;
+use OpenMindParser\Parser;
+use OpenMindParser\Converters\HTML\GenericHTMLConverter;
 
 $filePath = __DIR__.'/../tests/TestFile/Conduite_agressive.mm';
 

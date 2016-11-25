@@ -1,11 +1,11 @@
 <?php
 
-namespace openMindParser\Converters\JSON;
+namespace OpenMindParser\Converters\JSON;
 
-use openMindParser\Converters\Model\AbstractConverter;
-use openMindParser\Objects\Document;
-use openMindParser\Objects\Node;
-use openMindParser\Parser;
+use OpenMindParser\Converters\Model\AbstractConverter;
+use OpenMindParser\Objects\Document;
+use OpenMindParser\Objects\Node;
+use OpenMindParser\Parser;
 use \DOMDocument;
 
 /*A singleton to convert a document tree (object Document) in a JSON tree following few options.*/
