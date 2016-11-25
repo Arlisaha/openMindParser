@@ -139,4 +139,23 @@ class Document
 	public function __toString() {
 		return $this->getName();
 	}
+	
+	/**
+	 * Transform the objects tree in an array tree.
+	 * 
+	 * @return Array $array : The array tree.
+	 */
+	public function toArray() {
+		$array = get_object_vars($this);
+		array_walk($array, function(&$value, $key) use(&$array){
+			if($value instanceof Node) {
+				$value = $value->toArray();
+			}
+			elseif($value instanceof DOMDocument) {
+				$value = preg_replace('#\\n+#', '', $value->saveXML());
+			}
+		});
+		
+		return $array;
+	}
 }

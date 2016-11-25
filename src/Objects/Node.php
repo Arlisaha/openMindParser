@@ -302,4 +302,32 @@ class Node
 	public function __toString() {
 		return $this->getText();
 	}
+	
+	/**
+	 * Transform the objects tree in an array tree.
+	 * 
+	 * @return Array $array : The array tree.
+	 */
+	public function toArray() {
+		$array = [];
+		$sorter = function($value, $key) use(&$array) {
+			if($value instanceof NodeList) {
+				$newValue = [];
+				foreach($value as $node) {
+					$newValue[] = $node->toArray();
+				}
+				$value = $newValue;
+			}
+			elseif($value instanceof DOMElement) {
+				return;
+			}
+			$array[$key] = $value;
+		};
+		
+		foreach(get_object_vars($this) as $key => $value) {
+			$sorter($value, $key);
+		}
+		
+		return $array;
+	}
 }
