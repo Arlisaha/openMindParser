@@ -13,7 +13,13 @@ use \DOMNamedNodeMap;
 /*The class responsible to build the objects tree representing the openMind document.*/
 class Parser extends AbstractSingleton
 {
+	/**
+	 * @const String NODE_NODENAME : a constant with the name of the XML node with data to store.
+	 */
 	const NODE_NODENAME = 'node';
+	/**
+	 * @var Array : list of available attributes in XML tag NODE_NODENAME.
+	 */
 	private static $nodeAvailableAttributes = [
 		'ID'       => 'id',
 		'COLOR'    => 'color',
@@ -24,7 +30,13 @@ class Parser extends AbstractSingleton
 		'FOLDED'   => 'folded',
 		'TEXT'     => 'text',
 	];
+	/**
+	 * @const String FONT_NODENAME : a constant with the name of the XML node with data to store for font matter.
+	 */
 	const FONT_NODENAME = 'font';
+	/**
+	 * @var Array : list of available attributes in XML tag FONT_NODENAME.
+	 */
 	private static $fontAvailableAttributes = [
 		'NAME' => 'fontName',
 		'SIZE' => 'fontSize',

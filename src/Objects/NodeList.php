@@ -5,6 +5,7 @@ namespace openMindParser\Objects;
 use \InvalidArgumentException;
 use \ArrayIterator;
 
+/*A class to store a collection of Node Objects as a Traversable entity.*/
 class NodeList implements \IteratorAggregate
 {
 	/**
@@ -26,10 +27,20 @@ class NodeList implements \IteratorAggregate
 		$this->list = $list;
 	}
 	
+	/**
+	 * Method to retrieve the iterrator on the list property.
+	 * 
+	 * @return ArrayIterator : the ArrayInterrator instance with the current collection.
+	 */
 	public function getIterator() {
 		return new ArrayIterator($this->list);
 	}
 	
+	/**
+	 * Add a Node object to the collection.
+	 * 
+	 * @param Node $node : The Node instance to add to the current collection.
+	 */
 	public function add(Node $node) {
 		$this->list[] = $node;
 	}
