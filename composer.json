@@ -23,7 +23,8 @@
     },
     "autoload-dev": {
         "psr-1": {
-            "openMindParser\\Tests": "tests/"
+            "openMindParser\\Tests": "tests/",
+            "openMindParser\\Usage": "usage/"
         }
     } 
 }
