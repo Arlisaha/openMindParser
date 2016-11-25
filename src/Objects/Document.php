@@ -146,15 +146,20 @@ class Document
 	 * @return Array $array : The array tree.
 	 */
 	public function toArray() {
-		$array = get_object_vars($this);
-		array_walk($array, function(&$value, $key) use(&$array){
+		$array = [];
+		$sorter = function($value, $key) use(&$array) {
 			if($value instanceof Node) {
 				$value = $value->toArray();
 			}
 			elseif($value instanceof DOMDocument) {
-				$value = preg_replace('#\\n+#', '', $value->saveXML());
+				return;
 			}
-		});
+			$array[$key] = $value;
+		};
+		
+		foreach(get_object_vars($this) as $key => $value) {
+			$sorter($value, $key);
+		}
 		
 		return $array;
 	}
