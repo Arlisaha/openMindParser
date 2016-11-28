@@ -3,6 +3,7 @@
 namespace OpenMindParser\Objects;
 
 use \DOMNode;
+use \DOMElement;
 use \DOMNamedNodeMap;
 use OpenMindParser\Exceptions\InvalidNodeNameException;
 
@@ -54,12 +55,12 @@ class Node
 	 */
 	private $children;
 	/**
-	 * @var DOMNode $domNode : The DOMNode instance of the current Node.
+	 * @var DOMElement $domNode : The DOMElement instance of the current Node.
 	 */
 	private $domNode;
 	
 	/**
-	 * @param DOMNode $domNode : The DOMNode instance of the current Node.
+	 * @param DOMElement $domNode : The DOMElement instance of the current Node.
 	 * @param NodeList $children : The children of the node as a collection of Nodes.
 	 * @param String $id : The unique id of the node.
 	 * @param String $color : The text color of the node.
@@ -69,10 +70,10 @@ class Node
 	 * @param String $vshift : The vshift of the node.
 	 * @param String $folded : Is the node folded or not.
 	 * @param String $text : The text of the node.
-	 * @param String $fontName : The DOMNode instance of the current Node.
+	 * @param String $fontName : The font name of the current Node.
 	 * @param String $fontSize : The font size of the node.
 	 */
-	public function __construct(DOMNode $domNode = null, NodeList $children = null, $id = null, $color = null, $created = null, $modified = null, $position = null, $vshift = null, $folded = null, $text = null, $fontName = null, $fontSize = null) {
+	public function __construct(DOMElement $domNode = null, NodeList $children = null, $id = null, $color = null, $created = null, $modified = null, $position = null, $vshift = null, $folded = null, $text = null, $fontName = null, $fontSize = null) {
 		$this->id = $id;
 		$this->color = $color;
 		$this->created = $created;
@@ -84,7 +85,7 @@ class Node
 		$this->fontName = $fontName;
 		$this->fontSize = $fontSize;
 		$this->children = $children ?: new NodeList();
-		$this->domNode = $domNode ?: new DOMNode();
+		$this->domNode = $domNode ?: new DOMElement();
 	}
 	
 	/**
@@ -318,7 +319,7 @@ class Node
 				}
 				$value = $newValue;
 			}
-			elseif($value instanceof DOMNode) {
+			elseif($value instanceof DOMElement) {
 				return;
 			}
 			$array[$key] = $value;
