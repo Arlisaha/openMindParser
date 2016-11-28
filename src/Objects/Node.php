@@ -51,6 +51,10 @@ class Node
 	 */
 	private $fontSize;
 	/**
+	 * @var Icon $icon : The icon of the node if there is one.
+	 */
+	private $icon;
+	/**
 	 * @var NodeList $children : The children of the node as a collection of Nodes.
 	 */
 	private $children;
@@ -62,6 +66,7 @@ class Node
 	/**
 	 * @param DOMElement $domNode : The DOMElement instance of the current Node.
 	 * @param NodeList $children : The children of the node as a collection of Nodes.
+	 * @param Icon $icon : The icon of the node if there is one.
 	 * @param String $id : The unique id of the node.
 	 * @param String $color : The text color of the node.
 	 * @param String $created : The timestamp of the creation date of the node.
@@ -73,7 +78,7 @@ class Node
 	 * @param String $fontName : The font name of the current Node.
 	 * @param String $fontSize : The font size of the node.
 	 */
-	public function __construct(DOMElement $domNode = null, NodeList $children = null, $id = null, $color = null, $created = null, $modified = null, $position = null, $vshift = null, $folded = null, $text = null, $fontName = null, $fontSize = null) {
+	public function __construct(DOMElement $domNode = null, NodeList $children = null, Icon $icon = null, $id = null, $color = null, $created = null, $modified = null, $position = null, $vshift = null, $folded = null, $text = null, $fontName = null, $fontSize = null) {
 		$this->id = $id;
 		$this->color = $color;
 		$this->created = $created;
@@ -84,6 +89,7 @@ class Node
 		$this->text = $text;
 		$this->fontName = $fontName;
 		$this->fontSize = $fontSize;
+		$this->icon = $icon ?: new Icon();
 		$this->children = $children ?: new NodeList();
 		$this->domNode = $domNode ?: new DOMElement();
 	}
@@ -91,7 +97,7 @@ class Node
 	/**
 	 * Return the Id of the current node.
 	 * 
-	 * @param String $id : The node id.
+	 * @return String : The node id.
 	 */
 	public function getId() {
 		return $this->id;
@@ -109,7 +115,7 @@ class Node
 	/**
 	 * Return the color of the current node.
 	 * 
-	 * @param String $color : The node color value in hexadecimal.
+	 * @return String : The node color value in hexadecimal.
 	 */
 	public function getColor() {
 		return $this->color;
@@ -127,7 +133,7 @@ class Node
 	/**
 	 * Return the created timestamp of the current node.
 	 * 
-	 * @param String $created : The node created timestamp.
+	 * @return String : The node created timestamp.
 	 */
 	public function getCreated() {
 		return $this->created;
@@ -145,7 +151,7 @@ class Node
 	/**
 	 * Return the modified timestamp of the current node.
 	 * 
-	 * @param String $modified : The node modified timestamp.
+	 * @return String : The node modified timestamp.
 	 */
 	public function getModified() {
 		return $this->modified;
@@ -163,7 +169,7 @@ class Node
 	/**
 	 * Return the relative position the current node to the parent node.
 	 * 
-	 * @param String $position : The node relative position.
+	 * @return String : The node relative position.
 	 */
 	public function getPosition() {
 		return $this->position;
@@ -181,7 +187,7 @@ class Node
 	/**
 	 * Return the vshift value of the current node.
 	 * 
-	 * @param String $vshift : The node vshift value.
+	 * @return String : The node vshift value.
 	 */
 	public function getVshift() {
 		return $this->vshift;
@@ -199,7 +205,7 @@ class Node
 	/**
 	 * Return if the current node is folded or not.
 	 * 
-	 * @param Bool $folded
+	 * @return Bool $folded
 	 */
 	public function isFolded() {
 		return $this->folded;
@@ -217,7 +223,7 @@ class Node
 	/**
 	 * Return the text of the current node with html entities decoded.
 	 * 
-	 * @param String $text : The node text value.
+	 * @return String : The node text value.
 	 */
 	public function getText() {
 		return html_entity_decode($this->text);
@@ -226,7 +232,7 @@ class Node
 	/**
 	 * Return the text of the current node.
 	 * 
-	 * @param String $text : The node text value.
+	 * @return String : The node text value.
 	 */
 	public function getRawText() {
 		return $this->text;
@@ -244,7 +250,7 @@ class Node
 	/**
 	 * Return the font name of the current node.
 	 * 
-	 * @param String $fontName : The node font name.
+	 * @return String : The node font name.
 	 */
 	public function getFontName() {
 		return $this->fontName;
@@ -262,7 +268,7 @@ class Node
 	/**
 	 * Return the font size of the current node.
 	 * 
-	 * @param String $fontSize : The node font size.
+	 * @return String : The node font size.
 	 */
 	public function getFontSize() {
 		return $this->fontSize;
@@ -275,6 +281,24 @@ class Node
 	 */
 	public function setFontSize($fontSize) {
 		$this->fontSize = $fontSize;
+	}
+	
+	/**
+	 * Return the icon of the current node if there is one.
+	 * 
+	 * @return Icon : The icon.
+	 */
+	public function getIcon() {
+		return $this->icon;
+	}
+	
+	/**
+	 * Set the icon of the current node.
+	 * 
+	 * @param Icon $icon : The node icon.
+	 */
+	public function setIcon(Icon $icon) {
+		$this->icon = $icon;
 	}
 	
 	/**
@@ -318,6 +342,9 @@ class Node
 					$newValue[] = $node->toArray();
 				}
 				$value = $newValue;
+			}
+			elseif($value instanceof Icon) {
+				$value = $value->getFullFilePath();
 			}
 			elseif($value instanceof DOMElement) {
 				return;

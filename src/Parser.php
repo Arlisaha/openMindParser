@@ -5,6 +5,7 @@ namespace OpenMindParser;
 use OpenMindParser\Patterns\AbstractSingleton;
 use OpenMindParser\Objects\Document;
 use OpenMindParser\Objects\Node;
+use OpenMindParser\Objects\Icon;
 use OpenMindParser\Objects\NodeList;
 use \DOMDocument;
 use \DOMElement;
@@ -18,7 +19,7 @@ class Parser extends AbstractSingleton
 	 */
 	const NODE_NODENAME = 'node';
 	/**
-	 * @var Array : list of available attributes in XML tag NODE_NODENAME.
+	 * @var Array $nodeAvailableAttributes : list of available attributes in XML tag NODE_NODENAME.
 	 */
 	private static $nodeAvailableAttributes = [
 		'ID'       => 'id',
@@ -35,11 +36,21 @@ class Parser extends AbstractSingleton
 	 */
 	const FONT_NODENAME = 'font';
 	/**
-	 * @var Array : list of available attributes in XML tag FONT_NODENAME.
+	 * @var Array $fontAvailableAttributes : list of available attributes in XML tag FONT_NODENAME.
 	 */
 	private static $fontAvailableAttributes = [
 		'NAME' => 'fontName',
 		'SIZE' => 'fontSize',
+	];
+	/**
+	 * @const String ICON_NODENAME : a constant with the name of the XML node with data to store for icon matter.
+	 */
+	const ICON_NODENAME = 'icon';
+	/**
+	 * @var Array $iconAvailableAttributes : list of available attributes in XML tag ICON_NODENAME.
+	 */
+	private static $iconAvailableAttributes = [
+		'BUILTIN' => 'icon',
 	];
 	
 	/**
@@ -89,6 +100,13 @@ class Parser extends AbstractSingleton
 			elseif($childNode->nodeName === self::FONT_NODENAME) {
 				$this->fillNodeAttributes($childNode->attributes, self::$fontAvailableAttributes, $node);
 			}
+			elseif($childNode->nodeName === self::ICON_NODENAME) {
+				foreach($childNode->attributes as $attribute) {
+					if(array_key_exists($attribute->nodeName, self::$iconAvailableAttributes)) {
+						$node->getIcon()->setIcon($attribute->nodeValue);
+					}
+				}
+			}
 		}
 		
 		$node->setChildren($children);
@@ -106,7 +124,12 @@ class Parser extends AbstractSingleton
 	private function fillNodeAttributes (DOMNamedNodeMap $nodeAtributes, array $availableAttributes, Node $node) {
 		foreach($nodeAtributes as $attribute) {
 			if(array_key_exists($attribute->nodeName, $availableAttributes)) {
-				call_user_func([$node, sprintf('openMindParser\Objects\Node::set%s', ucfirst($availableAttributes[$attribute->nodeName]))], $attribute->nodeValue);
+				call_user_func([
+						$node, 
+						sprintf('openMindParser\Objects\Node::set%s', ucfirst($availableAttributes[$attribute->nodeName]))
+					], 
+					$attribute->nodeValue
+				);
 			}
 		}
 	}
