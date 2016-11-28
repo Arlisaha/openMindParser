@@ -9,11 +9,11 @@
 		    <testsuite name="full">
 		        <directory>./tests</directory>
 		    </testsuite>
-			<testsuite name="converters">
-			        <directory>./tests/Converters</directory>
-			</testsuite>
 			<testsuite name="objects">
 			        <directory>./tests/Objects</directory>
+			</testsuite>
+			<testsuite name="converters">
+			        <directory>./tests/Converters</directory>
 			</testsuite>
     	</testsuites>
 </phpunit>
