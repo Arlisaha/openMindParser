@@ -76,7 +76,7 @@ class Parser extends AbstractSingleton
 			throw new InvalidNodeNameException('The node name must be "node". "'.$domNode->nodeName.'" given.');
 		}
 		
-		$node = new Node();
+		$node = new Node($domNode);
 		
 		$this->fillNodeAttributes($domNode->attributes, self::$nodeAvailableAttributes, $node);
 		
@@ -87,7 +87,7 @@ class Parser extends AbstractSingleton
 				$children->add($this->fillNode($childNode));
 			}
 			elseif($childNode->nodeName === self::FONT_NODENAME) {
-				$this->fillNodeAttributes($domNode->attributes, self::$fontAvailableAttributes, $node);
+				$this->fillNodeAttributes($childNode->attributes, self::$fontAvailableAttributes, $node);
 			}
 		}
 		
