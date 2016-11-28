@@ -77,6 +77,9 @@ class Node
 	 * @param String $text : The text of the node.
 	 * @param String $fontName : The font name of the current Node.
 	 * @param String $fontSize : The font size of the node.
+	 * @param Icon $icon : The icon of the node if there is one.
+	 * @param NodeList $children : The children of the node as a collection of Nodes.
+	 * @param DOMElement $domNode : The DOMElement instance of the current Node.
 	 */
 	public function __construct(DOMElement $domNode = null, NodeList $children = null, Icon $icon = null, $id = null, $color = null, $created = null, $modified = null, $position = null, $vshift = null, $folded = null, $text = null, $fontName = null, $fontSize = null) {
 		$this->id = $id;
@@ -317,6 +320,24 @@ class Node
 	 */
 	public function setChildren(NodeList $children) {
 		$this->children = $children;
+	}
+	
+	/**
+	 * Return the DOMElement instance of the cirrent Node.
+	 * 
+	 * @return DOMElement : DOMElement instance.
+	 */
+	public function getDomNode() {
+		return $this->domNode;
+	}
+	
+	/**
+	 * Set the current DOMElement instance.
+	 * 
+	 * @param DOMElement $domNode : The DOMElement instance.
+	 */
+	public function setDomNode(DOMElement $domNode) {
+		$this->domNode = $domNode;
 	}
 	
 	/**
