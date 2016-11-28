@@ -1,19 +1,36 @@
 <?php
 
-namespace openMindParser\Tests\Objects;
+namespace OpenMindParser\Tests\Objects;
 
-use \PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use OpenMindParser\Parser;
 use \DOMDocument;
 
 class DocumentTest extends TestCase
 {
+	protected $filePath;
+	protected $document;
+	
+	public function setUp() {
+		$this->filePath = __DIR__.'/../TestFile/test_sample.mm';
+		$this->document = Parser::getInstance()->buildDocumentTreeFromFilePath($this->filePath);
+	}
+	
+	public function testConstruct() {
+		$this->assertAttributeInternalType('string', 'path', $this->document);
+		$this->assertAttributeInternalType('string', 'name', $this->document);
+		$this->assertAttributeInternalType('int', 'size', $this->document);
+		$this->assertAttributeInternalType('object', 'domDocument', $this->document);
+		$this->assertInstanceOf('\DOMDocument', $this->document->getDomDocument());
+		$this->assertAttributeInternalType('object', 'rootNode', $this->document);
+		$this->assertInstanceOf('OpenMindParser\Objects\Node', $this->document->getRootNode());
+	}
+	
 	public function testToArray() {
-		$filePath = __DIR__.'/../TestFile/test_sample.mm';
 		$awaitedResult = [
-			'path'     => $filePath,
-			'name'     => basename($filePath),
-			'size'     => filesize($filePath),
+			'path'     => $this->filePath,
+			'name'     => basename($this->filePath),
+			'size'     => filesize($this->filePath),
 			'rootNode' => [
 				'id'       => '0',
 				'color'    => '#000000', 
@@ -25,6 +42,7 @@ class DocumentTest extends TestCase
 				'text'     => 'node_0',
 				'fontName' => 'SansSerif',
 				'fontSize' => '20',
+				'icon'     => null,
 				'children' => [
 					[	
 						'id'       => '0_1',
@@ -37,6 +55,7 @@ class DocumentTest extends TestCase
 						'text'     => 'node_0_1',
 						'fontName' => 'SansSerif',
 						'fontSize' => '18',
+						'icon'     => null,
 						'children' => [
 							[
 								'id'       => '0_1_1',
@@ -47,8 +66,9 @@ class DocumentTest extends TestCase
 								'vshift'   => null,
 								'folded'   => null,
 								'text'     => 'node_0_1_1',
-								'fontName' => 'SansSerif',
-								'fontSize' => '16',
+								'fontName' => null,
+								'fontSize' => null,
+								'icon'     => null,
 								'children' => [],
 							],
 						],
@@ -62,17 +82,15 @@ class DocumentTest extends TestCase
 						'vshift'   => '-45',
 						'folded'   => 'true',
 						'text'     => 'node_0_2',
-						'fontName' => null,
-						'fontSize' => null,
+						'fontName' => 'SansSerif',
+						'fontSize' => '16',
+						'icon'     => IMG_ROOT_DIR.'button_ok.png',
 						'children' => [],
 					],
 				],
 			],
 		];
 		
-		$doc = Parser::getInstance();
-		$doc = $doc->buildDocumentTreeFromFilePath($filePath);
-		
-		$this->assertEquals($awaitedResult, $doc->toArray());
+		$this->assertEquals($awaitedResult, $this->document->toArray());
 	}
 }
