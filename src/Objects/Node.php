@@ -89,7 +89,7 @@ class Node
 		$this->text = $text;
 		$this->fontName = $fontName;
 		$this->fontSize = $fontSize;
-		$this->icon = $icon ?: new Icon();
+		$this->icon = $icon;
 		$this->children = $children ?: new NodeList();
 		$this->domNode = $domNode ?: new DOMElement();
 	}
@@ -344,7 +344,7 @@ class Node
 				$value = $newValue;
 			}
 			elseif($value instanceof Icon) {
-				$value = $value->getFullFilePath();
+				$value = $value->getFilePath();
 			}
 			elseif($value instanceof DOMElement) {
 				return;

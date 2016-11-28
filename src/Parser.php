@@ -103,7 +103,7 @@ class Parser extends AbstractSingleton
 			elseif($childNode->nodeName === self::ICON_NODENAME) {
 				foreach($childNode->attributes as $attribute) {
 					if(array_key_exists($attribute->nodeName, self::$iconAvailableAttributes)) {
-						$node->getIcon()->setIcon($attribute->nodeValue);
+						$node->setIcon(new Icon($attribute->nodeValue));
 					}
 				}
 			}
