@@ -1,11 +1,8 @@
 <?php
-
 namespace OpenMindParser\Tests\Objects;
-
 use PHPUnit\Framework\TestCase;
 use OpenMindParser\Parser;
 use \DOMDocument;
-
 class DocumentTest extends TestCase
 {
 	protected $filePath;
@@ -23,7 +20,7 @@ class DocumentTest extends TestCase
 		$this->assertAttributeInternalType('object', 'domDocument', $this->document);
 		$this->assertInstanceOf('\DOMDocument', $this->document->getDomDocument());
 		$this->assertAttributeInternalType('object', 'rootNode', $this->document);
-		$this->assertInstanceOf('OpenMindParser\Objects\Node', $this->document->getRootNode());
+		$this->assertInstanceOf('OpenMindParser\Models\Node', $this->document->getRootNode());
 	}
 	
 	public function testToArray() {

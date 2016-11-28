@@ -3,10 +3,10 @@
 namespace OpenMindParser;
 
 use OpenMindParser\Patterns\AbstractSingleton;
-use OpenMindParser\Objects\Document;
-use OpenMindParser\Objects\Node;
-use OpenMindParser\Objects\Icon;
-use OpenMindParser\Objects\NodeList;
+use OpenMindParser\Models\Document;
+use OpenMindParser\Models\Node;
+use OpenMindParser\Models\Icon;
+use OpenMindParser\Models\NodeList;
 use \DOMDocument;
 use \DOMElement;
 use \DOMNamedNodeMap;
@@ -126,7 +126,7 @@ class Parser extends AbstractSingleton
 			if(array_key_exists($attribute->nodeName, $availableAttributes)) {
 				call_user_func([
 						$node, 
-						sprintf('openMindParser\Objects\Node::set%s', ucfirst($availableAttributes[$attribute->nodeName]))
+						sprintf('openMindParser\Models\Node::set%s', ucfirst($availableAttributes[$attribute->nodeName]))
 					], 
 					$attribute->nodeValue
 				);

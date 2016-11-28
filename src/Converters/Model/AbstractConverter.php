@@ -3,7 +3,7 @@
 namespace OpenMindParser\Converters\Model;
 
 use OpenMindParser\Patterns\AbstractSingleton;
-use OpenMindParser\Objects\Document;
+use OpenMindParser\Models\Document;
 use OpenMindParser\Parser;
 use \InvalidArgumentException;
 

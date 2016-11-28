@@ -1,10 +1,7 @@
 <?php
-
 namespace OpenMindParser\Tests\Objects;
-
 use PHPUnit\Framework\TestCase;
 use OpenMindParser\Parser;
-
 class NodeTest extends TestCase
 {
 	protected $filePath;
@@ -29,9 +26,9 @@ class NodeTest extends TestCase
 		$this->assertAttributeInternalType('string', 'fontName', $this->node);
 		$this->assertAttributeInternalType('string', 'fontSize', $this->node);
 		$this->assertAttributeInternalType('object', 'icon', $this->node);
-		$this->assertInstanceOf('OpenMindParser\Objects\Icon', $this->node->getIcon());
+		$this->assertInstanceOf('OpenMindParser\Models\Icon', $this->node->getIcon());
 		$this->assertAttributeInternalType('object', 'children', $this->node);
-		$this->assertInstanceOf('OpenMindParser\Objects\NodeList', $this->node->getChildren());
+		$this->assertInstanceOf('OpenMindParser\Models\NodeList', $this->node->getChildren());
 		$this->assertAttributeInternalType('object', 'domNode', $this->node);
 		$this->assertInstanceOf('\DOMElement', $this->node->getDomNode());
 	}

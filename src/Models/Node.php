@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenMindParser\Objects;
+namespace OpenMindParser\Models;
 
 use \DOMNode;
 use \DOMElement;

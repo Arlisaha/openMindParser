@@ -3,8 +3,8 @@
 namespace OpenMindParser\Converters\HTML;
 
 use OpenMindParser\Converters\Model\AbstractConverter;
-use OpenMindParser\Objects\Document;
-use OpenMindParser\Objects\Node;
+use OpenMindParser\Models\Document;
+use OpenMindParser\Models\Node;
 use OpenMindParser\Parser;
 use \DOMDocument;
 
