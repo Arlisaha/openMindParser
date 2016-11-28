@@ -83,8 +83,8 @@ class Node
 		$this->text = $text;
 		$this->fontName = $fontName;
 		$this->fontSize = $fontSize;
-		$this->children = $children;
-		$this->domNode = $domNode;
+		$this->children = $children ?: new NodeList();
+		$this->domNode = $domNode ?: new DOMNode();
 	}
 	
 	/**
@@ -318,7 +318,7 @@ class Node
 				}
 				$value = $newValue;
 			}
-			elseif($value instanceof DOMElement) {
+			elseif($value instanceof DOMNode) {
 				return;
 			}
 			$array[$key] = $value;
