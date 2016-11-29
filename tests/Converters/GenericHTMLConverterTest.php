@@ -23,6 +23,6 @@ class GenericHTMLConverterTest extends TestCase
 			HTML_CONVERTER_MAIN_ICON_KEY => true,
 		]);
 		
-		$this->assertEquals($domDocument->saveHTML(), $htmlStr->saveHTML());
+		$this->assertEquals(trim($domDocument->saveHTML()), trim($htmlStr->saveHTML()));
 	}
 }
