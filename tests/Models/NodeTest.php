@@ -12,7 +12,7 @@ class NodeTest extends TestCase
 	protected $node;
 	
 	public function setUp() {
-		$this->filePath = __DIR__.'/../TestFile/test_sample.mm';
+		$this->filePath = TESTS_FULL_ROOT_DIR.'TestFile/test_sample.mm';
 		$this->document = Parser::getInstance()->buildDocumentTreeFromFilePath($this->filePath);
 		$this->node = $this->document->getRootNode()->getChildren()->getIterator()[1];
 	}
