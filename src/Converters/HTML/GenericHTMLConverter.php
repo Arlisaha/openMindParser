@@ -75,7 +75,8 @@ class GenericHTMLConverter extends AbstractConverter
 	private function buildHTMLTreeFromNode(DOMDocument $document, Node $node, array $options) {
 		$domElementA = $this->buildElement($document, $options[HTML_CONVERTER_MAIN_TAG_KEY][0]);
 		
-		$options[HTML_CONVERTER_MAIN_TAG_KEY][1][HTML_CONVERTER_ATTRIBUTES_KEY] = array_merge([$options[HTML_CONVERTER_MAIN_TAG_KEY][1][HTML_CONVERTER_ATTRIBUTES_KEY], 
+		$options[HTML_CONVERTER_MAIN_TAG_KEY][1][HTML_CONVERTER_ATTRIBUTES_KEY] = array_merge(
+			$options[HTML_CONVERTER_MAIN_TAG_KEY][1][HTML_CONVERTER_ATTRIBUTES_KEY], [
 			'style' => 'color:'.$node->getColor().';'.
 					   ($node->getFontName() ? 'font-family:'.$node->getFontName().';' : '').
 					   ($node->getFontSize() ? 'font-size:'.$node->getFontSize().';' : ''),
