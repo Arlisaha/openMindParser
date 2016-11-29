@@ -5,6 +5,8 @@ define('IMG_FULL_ROOT_DIR', PROJECT_ROOT_DIR.'/img/');
 define('IMG_ROOT_DIR', '/'.basename(PROJECT_ROOT_DIR).'/img/');
 define('SRC_FULL_ROOT_DIR', PROJECT_ROOT_DIR.'/src/');
 define('SRC_ROOT_DIR', '/'.basename(PROJECT_ROOT_DIR).'/src/');
+define('TESTS_FULL_ROOT_DIR', PROJECT_ROOT_DIR.'/tests/');
+define('TESTS_ROOT_DIR', '/'.basename(PROJECT_ROOT_DIR).'/tests/');
 
 //Converters
 define('HTML_CONVERTER_MAIN_TAG_KEY', 'tags'); //String MAIN_TAG_KEY : An option key name for the list of HTML tags to use.
