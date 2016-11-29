@@ -7,6 +7,7 @@ use OpenMindParser\Models\Document;
 use OpenMindParser\Models\Node;
 use OpenMindParser\Models\Icon;
 use OpenMindParser\Models\NodeList;
+use \InvalidArgumentException;
 use \DOMDocument;
 use \DOMElement;
 use \DOMNamedNodeMap;
@@ -62,7 +63,7 @@ class Parser extends AbstractSingleton
 	 */
 	public function buildDocumentTreeFromFilePath($filePath) {
 		if(!file_exists($filePath)) {
-			throw new \InvalidArgumentException('The given path : "'.$filePath.'" is invalid.');
+			throw new InvalidArgumentException('The given path : "'.$filePath.'" is invalid.');
 		}
 		
 		$domDocument = new DOMDocument();
