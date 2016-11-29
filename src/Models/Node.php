@@ -94,7 +94,7 @@ class Node
 		$this->fontSize = $fontSize;
 		$this->icon = $icon;
 		$this->children = $children ?: new NodeList();
-		$this->domNode = $domNode ?: new DOMElement();
+		$this->domNode = $domNode;
 	}
 	
 	/**
