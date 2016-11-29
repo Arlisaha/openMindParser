@@ -1,7 +1,10 @@
 <?php
+
 namespace OpenMindParser\Tests\Models;
+
 use PHPUnit\Framework\TestCase;
 use OpenMindParser\Parser;
+
 class NodeTest extends TestCase
 {
 	protected $filePath;
