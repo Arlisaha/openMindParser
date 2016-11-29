@@ -1,4 +1,4 @@
-OpenMindParser.
+OpenMindParser. [![Build Status](https://travis-ci.org/YannDi-Serio/openMindParser.svg?branch=master)](https://travis-ci.org/YannDi-Serio/openMindParser) 
 ===================
 This lib has been designed to read openMind (.mm) files.
 
