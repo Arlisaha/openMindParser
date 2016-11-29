@@ -57,7 +57,7 @@ class Icon
 		$this->name = $name;
 		$this->extension = $extension ?: 'png';
 		$this->fullFilePath = $fullFilePath ?: realpath(IMG_FULL_ROOT_DIR.$this->name.'.'.$this->extension);
-		$this->filePath = $filePath ?: IMG_ROOT_DIR.$this->name.'.'.$this->extension;;
+		$this->filePath = $filePath ?: IMG_ROOT_DIR.$this->name.'.'.$this->extension;
 		
 		if(!file_exists($this->fullFilePath)) {
 			throw new UnexistentFileException('The file '.$this->fullFilePath.' does not exist !');
