@@ -1,5 +1,5 @@
 <?php
-namespace OpenMindParser\Tests\Objects;
+namespace OpenMindParser\Tests\Models;
 use PHPUnit\Framework\TestCase;
 use OpenMindParser\Parser;
 use \DOMDocument;
