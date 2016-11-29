@@ -4,11 +4,11 @@ This lib has been designed to read openMind (.mm) files.
 
 Features
 -------------------
-*Read XML file and convert it in internal objects tree.
-*Convert object tree in arrays.
-*Convert in HTML.
-*Convert in JSON.
-*Icons support.
+* Read XML file and convert it in internal objects tree.\n
+* Convert object tree in arrays.
+* Convert in HTML.
+* Convert in JSON.
+* Icons support.
 
 Installation
 -------------------
