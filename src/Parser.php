@@ -2,7 +2,6 @@
 
 namespace OpenMindParser;
 
-use OpenMindParser\Patterns\AbstractSingleton;
 use OpenMindParser\Models\Document;
 use OpenMindParser\Models\Node;
 use OpenMindParser\Models\Icon;
