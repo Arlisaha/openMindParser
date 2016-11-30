@@ -1,4 +1,4 @@
-OpenMindParser. [![Build Status](https://travis-ci.org/YannDi-Serio/openMindParser.svg?branch=master)](https://travis-ci.org/YannDi-Serio/openMindParser) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/YannDi-Serio/openMindParser/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/YannDi-Serio/openMindParser/?b=master) 
+OpenMindParser. [![Build Status](https://travis-ci.org/Arlisaha/openMindParser.svg?branch=master)](https://travis-ci.org/Arlisaha/openMindParser) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Arlisaha/openMindParser/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Arlisaha/openMindParser/?b=master) 
 ===================
 This lib has been designed to read openMind (.mm) files.
 
