@@ -9,7 +9,7 @@ use OpenMindParser\Converters\HTML\GenericHTMLConverter;
 
 $filePath = __DIR__.'/../tests/TestFile/Conduite_agressive.mm';
 
-$htmlConverter = GenericHTMLConverter::getInstance();
+$htmlConverter = new GenericHTMLConverter();
 $str = $htmlConverter->convert($filePath, [
 	HTML_CONVERTER_MAIN_TAG_KEY => [
 		[HTML_CONVERTER_TAG_KEY => 'ul', HTML_CONVERTER_ATTRIBUTES_KEY => []], 

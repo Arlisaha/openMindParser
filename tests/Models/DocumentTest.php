@@ -13,7 +13,8 @@ class DocumentTest extends TestCase
 	
 	public function setUp() {
 		$this->filePath = TESTS_FULL_ROOT_DIR.'TestFile/test_sample.mm';
-		$this->document = Parser::getInstance()->buildDocumentTreeFromFilePath($this->filePath);
+		$parser = new Parser();
+		$this->document = $parser->buildDocumentTreeFromFilePath($this->filePath);
 	}
 	
 	public function testConstruct() {

@@ -74,7 +74,7 @@ class GenericJSONConverterTest extends TestCase
 			],
 		]
 		);
-		$jsonConverter = GenericJSONConverter::getInstance();
+		$jsonConverter = new GenericJSONConverter();
 		
 		$jsonStr = $jsonConverter->convert($filePath);
 		

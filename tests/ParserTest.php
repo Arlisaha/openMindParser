@@ -41,7 +41,7 @@ class ParserTest extends TestCase
 	</node>';
 	
 	public function setUp() {
-		$this->parser = Parser::getInstance();
+		$this->parser = new Parser();
 		$this->wrongFilePath = '/error/wrong_file.mm';
 		$this->rightFilePath = __DIR__.'/TestFile/test_sample.mm';
 	}

@@ -9,7 +9,7 @@ use OpenMindParser\Converters\JSON\GenericJSONConverter;
 
 $filePath = __DIR__.'/../tests/TestFile/Conduite_agressive.mm';
 
-$htmlConverter = GenericJSONConverter::getInstance();
+$htmlConverter = new GenericJSONConverter();
 $str = $htmlConverter->convert($filePath);
 
 echo'<pre>';

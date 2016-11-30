@@ -8,7 +8,7 @@ use OpenMindParser\Parser;
 use \InvalidArgumentException;
 
 /*Abstract singleton to help write converters.*/
-abstract class AbstractConverter extends AbstractSingleton implements ConverterInterface
+abstract class AbstractConverter implements ConverterInterface
 {
 	/**
 	 * The method of the interface ConverterInterface. If the given data is a string and therefore a file path, A Document instance is created. 
@@ -28,7 +28,7 @@ abstract class AbstractConverter extends AbstractSingleton implements ConverterI
 		}
 		
 		if(is_string($data)) {
-			$parser = Parser::getInstance();
+			$parser = new Parser();
 			$data = $parser->buildDocumentTreeFromFilePath($data);	
 		}
 		

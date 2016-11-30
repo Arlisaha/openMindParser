@@ -13,7 +13,7 @@ use \DOMElement;
 use \DOMNamedNodeMap;
 
 /*The class responsible to build the objects tree representing the openMind document.*/
-class Parser extends AbstractSingleton
+class Parser
 {
 	/**
 	 * @const String NODE_NODENAME : a constant with the name of the XML node with data to store.
