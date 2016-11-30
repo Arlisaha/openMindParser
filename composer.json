@@ -19,8 +19,7 @@
     "autoload": {
         "psr-4": {
             "OpenMindParser\\": "src/"
-        },
-        "files": ["conf/config.php"]
+        }
     },
     "autoload-dev": {
         "psr-1": {

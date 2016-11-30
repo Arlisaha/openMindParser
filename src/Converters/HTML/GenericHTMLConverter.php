@@ -10,7 +10,24 @@ use \DOMDocument;
 
 /*A singleton to convert a document tree (object Document) in a HTML tree following few options.*/
 class GenericHTMLConverter extends AbstractConverter
-{
+{ 
+	/**
+	 * String MAIN_TAG_KEY : An option key name for the list of HTML tags to use.
+	 */
+	const MAIN_TAG_KEY = 'tags';
+	/**
+	 * String MAIN_ICON_KEY : An option key name for the icon tag to use.
+	 */
+	const MAIN_ICON_KEY = 'icon'; 
+	/**
+	 * String TAG_KEY : An option key name for the HTML tag to use.
+	 */
+	const TAG_KEY = 'tag'; 
+	/**
+	 * String ATTRIBUTES_KEY : An option key name for the HTML attributes to use on the tag.
+	 */
+	const ATTRIBUTES_KEY = 'attributes';
+	
 	/**
 	 * Call the conversion over the Document instance.
 	 * 
@@ -73,18 +90,18 @@ class GenericHTMLConverter extends AbstractConverter
 	 * @return DOMDocument $domDocument : The DOMDocument instance created with the HTML.
 	 */
 	private function buildHTMLTreeFromNode(DOMDocument $document, Node $node, array $options) {
-		$domElementA = $this->buildElement($document, $options[HTML_CONVERTER_MAIN_TAG_KEY][0]);
+		$domElementA = $this->buildElement($document, $options[self::MAIN_TAG_KEY][0]);
 		
-		$options[HTML_CONVERTER_MAIN_TAG_KEY][1][HTML_CONVERTER_ATTRIBUTES_KEY] = array_merge(
-			$options[HTML_CONVERTER_MAIN_TAG_KEY][1][HTML_CONVERTER_ATTRIBUTES_KEY], [
+		$options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY] = array_merge(
+			$options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY], [
 			'style' => 'color:'.$node->getColor().';'.
 					   ($node->getFontName() ? 'font-family:'.$node->getFontName().';' : '').
 					   ($node->getFontSize() ? 'font-size:'.$node->getFontSize().';' : ''),
 			'id'    => $node->getId(),
 			]);
-		$domElementB = $this->buildElement($document, $options[HTML_CONVERTER_MAIN_TAG_KEY][1]);
+		$domElementB = $this->buildElement($document, $options[self::MAIN_TAG_KEY][1]);
 		
-		if(!empty($node->getIcon()) && $options[HTML_CONVERTER_MAIN_ICON_KEY]) {
+		if(!empty($node->getIcon()) && $options[self::MAIN_ICON_KEY]) {
 			$icon = $node->getIcon();
 			$domElementImg = $document->createElement('img');
 			$domElementImg->setAttribute('src', $icon->getFilePath());
@@ -93,8 +110,8 @@ class GenericHTMLConverter extends AbstractConverter
 		}
 		
 		$text = $document->createTextNode($node->getText());
-		if(isset($options[HTML_CONVERTER_MAIN_TAG_KEY][2])) {
-			$domElementC = $this->buildElement($document, $options[HTML_CONVERTER_MAIN_TAG_KEY][2]);
+		if(isset($options[self::MAIN_TAG_KEY][2])) {
+			$domElementC = $this->buildElement($document, $options[self::MAIN_TAG_KEY][2]);
 			$domElementC->appendChild($text);
 			$domElementB->appendChild($domElementC);
 		}
@@ -120,8 +137,8 @@ class GenericHTMLConverter extends AbstractConverter
 	 * @return DOMElement $domElement : The created DOMElement.
 	 */
 	private function buildElement(DOMDocument $document, array $description) {
-		$domElement = $document->createElement($description[HTML_CONVERTER_TAG_KEY]);
-		foreach($description[HTML_CONVERTER_ATTRIBUTES_KEY] as $name => $attribute) {
+		$domElement = $document->createElement($description[self::TAG_KEY]);
+		foreach($description[self::ATTRIBUTES_KEY] as $name => $attribute) {
 			$domElement->setAttribute($name, $attribute);
 		}
 		

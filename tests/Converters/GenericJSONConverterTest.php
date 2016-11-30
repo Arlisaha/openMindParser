@@ -8,7 +8,7 @@ use OpenMindParser\Converters\JSON\GenericJSONConverter;
 class GenericJSONConverterTest extends TestCase
 {
 	public function testConvert() {
-		$filePath = TESTS_FULL_ROOT_DIR.'TestFile/test_sample.mm';
+		$filePath = __DIR__.'/../TestFile/test_sample.mm';
 		$awaitedJson = json_encode(
 			[
 			'path'     => $filePath,
@@ -67,7 +67,7 @@ class GenericJSONConverterTest extends TestCase
 						'text'     => 'node_0_2',
 						'fontName' => 'SansSerif',
 						'fontSize' => '16',
-						'icon'     => IMG_ROOT_DIR.'button_ok.png',
+						'icon'     => realpath(__DIR__.'/../../img/button_ok.png'),
 						'children' => [],
 					],
 				],
