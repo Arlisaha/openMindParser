@@ -3,7 +3,7 @@
     "description": "A parser for \".mm\" files (openMind format) to build objects out of it in order to then draw it or export it in another format.",
     "type": "library",
     "license": "MIT",
-    "homepage": "https://github.com/YannDi-Serio/openMindParser",
+    "homepage": "https://github.com/Arlisaha/openMindParser",
     "authors": [
         {
             "name": "YannDi-Serio",
