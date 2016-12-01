@@ -16,10 +16,6 @@ class GenericHTMLConverter extends AbstractConverter
 	 */
 	const MAIN_TAG_KEY = 'tags';
 	/**
-	 * String MAIN_ICON_KEY : An option key name for the icon tag to use.
-	 */
-	const MAIN_ICON_KEY = 'icon'; 
-	/**
 	 * String TAG_KEY : An option key name for the HTML tag to use.
 	 */
 	const TAG_KEY = 'tag'; 
@@ -27,6 +23,18 @@ class GenericHTMLConverter extends AbstractConverter
 	 * String ATTRIBUTES_KEY : An option key name for the HTML attributes to use on the tag.
 	 */
 	const ATTRIBUTES_KEY = 'attributes';
+	/**
+	 * String MAIN_ICON_KEY : An option key name for the icon tag to use.
+	 */
+	const MAIN_ICON_KEY = 'icon'; 
+	/**
+	 * String DISPLAY_ICON_KEY : A boolean to determine if for nodes with an icon, the icon will be added in a img tag before the text.
+	 */
+	 const DISPLAY_ICON_KEY = 'display';
+	/**
+	 * String PATH_ICON_KEY : A boolean to determine if for nodes with an icon, the icon will be added in a img tag before the text.
+	 */
+	 const PATH_ICON_KEY = 'path';
 	
 	/**
 	 * Call the conversion over the Document instance.
@@ -35,20 +43,23 @@ class GenericHTMLConverter extends AbstractConverter
 	 * @var Array $options : The options for the conversion. 
 	 * It must follow this filling : 
 	 * [
-	 * 		'tags' =>
+	 * 		MAIN_TAG_KEY =>
 	 * 			[
-	 * 				TAG_KEY => 'HTML tag to use (ul, div, ...)',
+	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
 	 * 			[
-	 * 				TAG_KEY => 'HTML tag to use (ul, div, ...)',
+	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
 	 * 			[
-	 * 				TAG_KEY => 'HTML tag to use (ul, div, ...)',
+	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
-	 * 		'icon' => boolean determining if the icons must be displayed or not,
+	 * 		MAIN_ICON_KEY => [
+	 * 			DISPLAY_ICON_KEY => boolean determining if the icons must be displayed or not,
+	 * 			PATH_ICON_KEY    => 'optional path to use instead of the full file path for img rendering.',
+	 * 		],
 	 * ]. The first two are mandatory, and the style stored in the Node instance (color, font name and font size) will be applied on the second tag).
 	 * 
 	 * @return DOMDocument $domDocument : The DOMDocument instance created with the HTML.
@@ -70,21 +81,23 @@ class GenericHTMLConverter extends AbstractConverter
 	 * @var Array $options : The options for the conversion. 
 	 * It must follow this filling : 
 	 * [
-	 * 		'tags' => [
+	 * 		MAIN_TAG_KEY =>
 	 * 			[
-	 * 				TAG_KEY => 'HTML tag to use (ul, div, ...)',
+	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
 	 * 			[
-	 * 				TAG_KEY => 'HTML tag to use (ul, div, ...)',
+	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
 	 * 			[
-	 * 				TAG_KEY => 'HTML tag to use (ul, div, ...)',
+	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
+	 * 		MAIN_ICON_KEY => [
+	 * 			DISPLAY_ICON_KEY => boolean determining if the icons must be displayed or not,
+	 * 			PATH_ICON_KEY    => 'optional path to use instead of the full file path for img rendering.',
 	 * 		],
-	 * 		'icon' => boolean determining if the icons must be displayed or not,
 	 * ]. The first two are mandatory.
 	 * 
 	 * @return DOMDocument $domDocument : The DOMDocument instance created with the HTML.
