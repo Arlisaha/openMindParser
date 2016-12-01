@@ -12,9 +12,17 @@ class Icon
 	 */
 	private $name;
 	/**
-	 * @var String $filePath : The file path of the icon understandable by HTPP protocol. If it is a builtin icon, then it is in the 'img' directory of the project.
+	 * @var String $fullName : The name of the icon without the path but with the extension.
 	 */
-	private $filePath;
+	private $fullName;
+	/**
+	 * @var String $filePath : The file path of the icon. If it is a builtin icon, then it is in the 'img' directory of the project.
+	 */
+	private $path;
+	/**
+	 * @var String $shortUri : The short uri to thye image. Will be used for exports. If it is a builtin icon, value will be '/img/'.
+	 */
+	private $shortUri;
 	/**
 	 * @var int $size : The size of the file.
 	 */
@@ -28,13 +36,14 @@ class Icon
 	 * The constructor. Use setIcon method.
 	 * 
 	 * @param String $name : The name of the icon without the path or the extension.
-	 * @param String $filePath : The file path of the icon. If it is a builtin icon, then it is in the 'img' directory of the project.
+	 * @param String $path : The file path of the icon. If it is a builtin icon, then it is in the 'img' directory of the project.
+	 * @param String $shortUri : The short uri to thye image. Will be used for exports. If it is a builtin icon, value will be '/img/'.
 	 * @param int $size : The size of the file.
 	 * @param String $extension : The extension of the icon file without the leading dot. If it is a builtin icon, then it is 'png'.
 	 */ 
-	public function __construct($name = null, $extension = null, $filePath = null, $size = null) {
+	public function __construct($name = null, $extension = null, $path = null, $shortUri = null, $size = null) {
 		if(!empty($name)) {
-			$this->setIcon($name, $extension, $filePath, $size);
+			$this->setIcon($name, $extension, $path, $shortUri, $size);
 		}
 	}
 	
@@ -43,20 +52,23 @@ class Icon
 	 * If only the name is given , then it will assume that a builtin icon is beeing used so the aother attributes will be filled following this logic.
 	 * 
 	 * @param String $name : The name of the icon without the path or the extension.
-	 * @param String $filePath : The file path of the icon. If it is a builtin icon, then it is in the 'img' directory of the project.
+	 * @param String $path : The file path of the icon. If it is a builtin icon, then it is in the 'img' directory of the project.
+	 * @param String $shortUri : The short uri to thye image. Will be used for exports. If it is a builtin icon, value will be '/img/'.
 	 * @param int $size : The size of the file.
 	 * @param String $extension : The extension of the icon file without the leading dot. If it is a builtin icon, then it is 'png'.
 	 */ 
-	public function setIcon($name, $extension = null, $filePath = null, $size = null) {
+	public function setIcon($name, $extension = null, $path = null, $shortUri = null, $size = null) {
 		$this->name = $name;
 		$this->extension = $extension ?: 'png';
-		$this->filePath = $filePath ?: realpath(__DIR__.'/../../img/'.$this->name.'.'.$this->extension);
+		$this->fullName = $this->name.'.'.$this->extension;
+		$this->shortUri = $shortUri ?: '/img/'.$this->fullName;
+		$this->path = $path ?: realpath(__DIR__.'/../../img/'.$this->fullName);
 		
-		if(!file_exists($this->filePath)) {
-			throw new UnexistentFileException('The file '.$this->filePath.' does not exist !');
+		if(!file_exists($this->path)) {
+			throw new UnexistentFileException('The file '.$this->path.' does not exist !');
 		}
 		
-		$this->size = filesize($this->filePath);
+		$this->size = filesize($this->path);
 	}
 	
 	/**
@@ -69,6 +81,15 @@ class Icon
 	}
 	
 	/**
+	 * Return the full icon name.
+	 * 
+	 * @return String : the full icon name.
+	 */
+	public function getFullName() {
+		return $this->fullName;
+	}
+	
+	/**
 	 * Return icon extension.
 	 * 
 	 * @return String : the icon extension.
@@ -77,14 +98,31 @@ class Icon
 		return $this->extension;
 	}
 	
-	
 	/**
 	 * Return icon file path.
 	 * 
 	 * @return String : the icon path.
 	 */
-	 public function getFilePath() {
-	 	return $this->filePath;
+	 public function getPath() {
+	 	return $this->path;
+	 }
+	
+	/**
+	 * Return icon short uri.
+	 * 
+	 * @return String : the icon short uri.
+	 */
+	 public function getShortUri() {
+	 	return $this->shortUri;
+	 }
+	
+	/**
+	 * Set the icon short uri.
+	 * 
+	 * @return String : the icon uri.
+	 */
+	 public function setShortUri($shortUri) {
+	 	$this->shortUri = $shortUri;
 	 }
 	
 	/**
@@ -102,6 +140,6 @@ class Icon
 	 * @return String
 	 */
 	public function __toString() {
-		return $this->getFilePath();
+		return $this->getPath();
 	}
 }

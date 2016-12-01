@@ -67,7 +67,7 @@ class GenericJSONConverterTest extends TestCase
 						'text'     => 'node_0_2',
 						'fontName' => 'SansSerif',
 						'fontSize' => '16',
-						'icon'     => realpath(__DIR__.'/../../img/button_ok.png'),
+						'icon'     => '/img/button_ok.png',
 						'children' => [],
 					],
 				],

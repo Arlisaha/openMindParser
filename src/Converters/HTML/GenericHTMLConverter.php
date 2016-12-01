@@ -58,7 +58,7 @@ class GenericHTMLConverter extends AbstractConverter
 	 * 			],
 	 * 		MAIN_ICON_KEY => [
 	 * 			DISPLAY_ICON_KEY => boolean determining if the icons must be displayed or not,
-	 * 			PATH_ICON_KEY    => 'optional path to use instead of the full file path for img rendering.',
+	 * 			PATH_ICON_KEY    => 'optional path to use instead of the short uri for img rendering.',
 	 * 		],
 	 * ]. The first two are mandatory, and the style stored in the Node instance (color, font name and font size) will be applied on the second tag).
 	 * 
@@ -96,7 +96,7 @@ class GenericHTMLConverter extends AbstractConverter
 	 * 			],
 	 * 		MAIN_ICON_KEY => [
 	 * 			DISPLAY_ICON_KEY => boolean determining if the icons must be displayed or not,
-	 * 			PATH_ICON_KEY    => 'optional path to use instead of the full file path for img rendering.',
+	 * 			PATH_ICON_KEY    => 'optional path to use instead of the short uri for img rendering.',
 	 * 		],
 	 * ]. The first two are mandatory.
 	 * 
@@ -114,10 +114,15 @@ class GenericHTMLConverter extends AbstractConverter
 			]);
 		$domElementB = $this->buildElement($document, $options[self::MAIN_TAG_KEY][1]);
 		
-		if(!empty($node->getIcon()) && $options[self::MAIN_ICON_KEY]) {
+		if(!empty($node->getIcon()) && $options[self::MAIN_ICON_KEY][self::DISPLAY_ICON_KEY]) {
 			$icon = $node->getIcon();
 			$domElementImg = $document->createElement('img');
-			$domElementImg->setAttribute('src', $icon->getFilePath());
+			$domElementImg->setAttribute(
+				'src', 
+				array_key_exists(self::PATH_ICON_KEY, $options[self::MAIN_ICON_KEY]) ? 
+					$options[self::MAIN_ICON_KEY][self::PATH_ICON_KEY].$icon->getFullName() :
+					$icon->getShortUri()
+			);
 			$domElementImg->setAttribute('alt', $icon->getName());
 			$domElementB->appendChild($domElementImg);
 		}

@@ -365,7 +365,7 @@ class Node
 				$value = $newValue;
 			}
 			elseif($value instanceof Icon) {
-				$value = $value->getFilePath();
+				$value = $value->getShortUri();
 			}
 			elseif($value instanceof DOMElement) {
 				return;
