@@ -17,7 +17,9 @@ $str = $htmlConverter->convert($filePath, [
 	], 
 	GenericHTMLConverter::MAIN_ICON_KEY => [
 		GenericHTMLConverter::DISPLAY_ICON_KEY => true,
-		GenericHTMLConverter::PATH_ICON_KEY    => '/openMindParser/img/',
+		GenericHTMLConverter::PATH_ICON_KEY    => [
+			GenericHTMLConverter::CALLBACK_PATH_ICON_KEY => function($fullName, $options = null){return '/openMindParser/img/'.$fullName;},
+		],
 	],
 ]);
 

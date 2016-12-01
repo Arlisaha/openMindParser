@@ -7,6 +7,7 @@ use OpenMindParser\Models\Document;
 use OpenMindParser\Models\Node;
 use OpenMindParser\Parser;
 use \DOMDocument;
+use \InvalidArgumentException;
 
 /*A singleton to convert a document tree (object Document) in a HTML tree following few options.*/
 class GenericHTMLConverter extends AbstractConverter
@@ -35,6 +36,16 @@ class GenericHTMLConverter extends AbstractConverter
 	 * String PATH_ICON_KEY : A boolean to determine if for nodes with an icon, the icon will be added in a img tag before the text.
 	 */
 	 const PATH_ICON_KEY = 'path';
+	/**
+	 * String CALLBACK_PATH_ICON_KEY : A callback to generate the icon uri as wished. 
+	 * Its first parameter is the icon full name (with extension (i.e : 'button_ok.png')).
+	 * Signature : function($fullName, $options = null);
+	 */
+	 const CALLBACK_PATH_ICON_KEY = 'callback';
+	/**
+	 * String OPTIONS_PATH_ICON_KEY : An array of options given as a second parameter to the callback.
+	 */
+	 const OPTIONS_PATH_ICON_KEY = 'options';
 	
 	/**
 	 * Call the conversion over the Document instance.
@@ -58,7 +69,10 @@ class GenericHTMLConverter extends AbstractConverter
 	 * 			],
 	 * 		MAIN_ICON_KEY => [
 	 * 			DISPLAY_ICON_KEY => boolean determining if the icons must be displayed or not,
-	 * 			PATH_ICON_KEY    => 'optional path to use instead of the short uri for img rendering.',
+	 * 			PATH_ICON_KEY    => [
+	 * 				'CALLBACK_PATH_ICON_KEY' => 'the callback to use to determine uri. Its first parameter will be the file full name, and the second an optional array with additional parametrs.',
+	 * 				'OPTIONS_PATH_ICON_KEY'  => [array of options for the callback],
+	 * 			],
 	 * 		],
 	 * ]. The first two are mandatory, and the style stored in the Node instance (color, font name and font size) will be applied on the second tag).
 	 * 
@@ -96,7 +110,10 @@ class GenericHTMLConverter extends AbstractConverter
 	 * 			],
 	 * 		MAIN_ICON_KEY => [
 	 * 			DISPLAY_ICON_KEY => boolean determining if the icons must be displayed or not,
-	 * 			PATH_ICON_KEY    => 'optional path to use instead of the short uri for img rendering.',
+	 * 			PATH_ICON_KEY    => [
+	 * 				'CALLBACK_PATH_ICON_KEY' => 'the callback to use to determine uri. Its first parameter will be the file full name, and the second an optional array with additional parametrs.',
+	 * 				'OPTIONS_PATH_ICON_KEY'  => [array of options for the callback],
+	 * 			],
 	 * 		],
 	 * ]. The first two are mandatory.
 	 * 
@@ -117,12 +134,21 @@ class GenericHTMLConverter extends AbstractConverter
 		if(!empty($node->getIcon()) && $options[self::MAIN_ICON_KEY][self::DISPLAY_ICON_KEY]) {
 			$icon = $node->getIcon();
 			$domElementImg = $document->createElement('img');
-			$domElementImg->setAttribute(
-				'src', 
-				array_key_exists(self::PATH_ICON_KEY, $options[self::MAIN_ICON_KEY]) ? 
-					$options[self::MAIN_ICON_KEY][self::PATH_ICON_KEY].$icon->getFullName() :
-					$icon->getShortUri()
-			);
+			
+			$iconUri = $icon->getShortUri();
+			if(array_key_exists(self::PATH_ICON_KEY, $options[self::MAIN_ICON_KEY])) {
+				if(!is_callable($callback = $options[self::MAIN_ICON_KEY][self::PATH_ICON_KEY][self::CALLBACK_PATH_ICON_KEY])) {
+					throw new InvalidArgumentException('The argument with the key "'.self::CALLBACK_PATH_ICON_KEY.'" (self::CALLBACK_PATH_ICON_KEY) must be a valid callback.');
+				}
+				
+				$callBackoptions = array_key_exists(self::OPTIONS_PATH_ICON_KEY, $options[self::MAIN_ICON_KEY][self::PATH_ICON_KEY]) ?
+					$options[self::MAIN_ICON_KEY][self::PATH_ICON_KEY][self::OPTIONS_PATH_ICON_KEY] :
+					null;
+				
+				$iconUri = $callback($icon->getFullName(), $callBackoptions);
+			}
+			
+			$domElementImg->setAttribute('src', $iconUri);
 			$domElementImg->setAttribute('alt', $icon->getName());
 			$domElementB->appendChild($domElementImg);
 		}
