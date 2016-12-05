@@ -33,7 +33,7 @@ class GenericHTMLConverter extends AbstractConverter
 	 */
 	 const DISPLAY_ICON_KEY = 'display';
 	/**
-	 * String PATH_ICON_KEY : A boolean to determine if for nodes with an icon, the icon will be added in a img tag before the text.
+	 * String PATH_ICON_KEY : Key for options to generate the icon path.
 	 */
 	 const PATH_ICON_KEY = 'path';
 	/**
