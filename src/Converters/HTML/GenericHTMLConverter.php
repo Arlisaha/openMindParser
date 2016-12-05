@@ -19,11 +19,15 @@ class GenericHTMLConverter extends AbstractConverter
 	/**
 	 * String TAG_KEY : An option key name for the HTML tag to use.
 	 */
-	const TAG_KEY = 'tag'; 
+	const TAG_KEY = 'tag';
 	/**
 	 * String ATTRIBUTES_KEY : An option key name for the HTML attributes to use on the tag.
 	 */
-	const ATTRIBUTES_KEY = 'attributes';
+	const ATTRIBUTES_KEY = 'attributes'; 
+	/**
+	 * String MAIN_TAG_MERGE_STYLE : An option key name for a boolean to choose if document fonts and colors will be used in HTML rendering (true by default).
+	 */
+	const MAIN_TAG_MERGE_STYLE = 'merge_style'; 
 	/**
 	 * String MAIN_ICON_KEY : An option key name for the icon tag to use.
 	 */
@@ -54,7 +58,7 @@ class GenericHTMLConverter extends AbstractConverter
 	 * @var Array $options : The options for the conversion. 
 	 * It must follow this filling : 
 	 * [
-	 * 		MAIN_TAG_KEY =>
+	 * 		MAIN_TAG_KEY         =>
 	 * 			[
 	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
@@ -67,7 +71,8 @@ class GenericHTMLConverter extends AbstractConverter
 	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
-	 * 		MAIN_ICON_KEY => [
+	 * 		MAIN_TAG_MERGE_STYLE =>  A boolean to choose if document fonts and colors will be used in HTML rendering (true by default),
+	 * 		MAIN_ICON_KEY        => [
 	 * 			DISPLAY_ICON_KEY => boolean determining if the icons must be displayed or not,
 	 * 			PATH_ICON_KEY    => [
 	 * 				'CALLBACK_PATH_ICON_KEY' => 'the callback to use to determine uri. Its first parameter will be the file full name, and the second an optional array with additional parametrs.',
@@ -95,7 +100,7 @@ class GenericHTMLConverter extends AbstractConverter
 	 * @var Array $options : The options for the conversion. 
 	 * It must follow this filling : 
 	 * [
-	 * 		MAIN_TAG_KEY =>
+	 * 		MAIN_TAG_KEY         =>
 	 * 			[
 	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
@@ -108,7 +113,8 @@ class GenericHTMLConverter extends AbstractConverter
 	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
-	 * 		MAIN_ICON_KEY => [
+	 * 		MAIN_TAG_MERGE_STYLE =>  A boolean to choose if document fonts and colors will be used in HTML rendering (true by default),
+	 * 		MAIN_ICON_KEY        => [
 	 * 			DISPLAY_ICON_KEY => boolean determining if the icons must be displayed or not,
 	 * 			PATH_ICON_KEY    => [
 	 * 				'CALLBACK_PATH_ICON_KEY' => 'the callback to use to determine uri. Its first parameter will be the file full name, and the second an optional array with additional parametrs.',
@@ -122,13 +128,21 @@ class GenericHTMLConverter extends AbstractConverter
 	private function buildHTMLTreeFromNode(DOMDocument $document, Node $node, array $options) {
 		$domElementA = $this->buildElement($document, $options[self::MAIN_TAG_KEY][0]);
 		
-		$options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY] = array_merge(
-			$options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY], [
-			'style' => 'color:'.$node->getColor().';'.
-					   ($node->getFontName() ? 'font-family:'.$node->getFontName().';' : '').
-					   ($node->getFontSize() ? 'font-size:'.$node->getFontSize().';' : ''),
-			'id'    => $node->getId(),
-			]);
+		if(!array_key_exists(self::MAIN_TAG_MERGE_STYLE, $options) || !is_bool($options[self::MAIN_TAG_MERGE_STYLE])) {
+			$options[self::MAIN_TAG_MERGE_STYLE] = true;
+		}
+		
+		if($options[self::MAIN_TAG_MERGE_STYLE]) {
+			$options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY] = array_merge(
+				$options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY], 
+				[
+					'style' => 'color:'.$node->getColor().';'.
+							   ($node->getFontName() ? 'font-family:'.$node->getFontName().';' : '').
+							   ($node->getFontSize() ? 'font-size:'.$node->getFontSize().';' : ''),
+					'id'    => $node->getId(),
+				]
+			);
+		}
 		$domElementB = $this->buildElement($document, $options[self::MAIN_TAG_KEY][1]);
 		
 		if(!empty($node->getIcon()) && $options[self::MAIN_ICON_KEY][self::DISPLAY_ICON_KEY]) {
