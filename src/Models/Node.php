@@ -365,7 +365,7 @@ class Node
 				$value = $newValue;
 			}
 			elseif($value instanceof Icon) {
-				$value = $value->getShortUri();
+				$value = $value->toArray();
 			}
 			elseif($value instanceof DOMElement) {
 				return;

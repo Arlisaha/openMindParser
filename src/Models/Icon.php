@@ -135,6 +135,15 @@ class Icon
 	}
 	
 	/**
+	 * Transform the objects tree in an array tree.
+	 * 
+	 * @return Array $array : The array tree.
+	 */
+	public function toArray() {
+		return get_object_vars($this);
+	}
+	
+	/**
 	 * Magic to String method.
 	 * 
 	 * @return String
