@@ -1,4 +1,4 @@
-OpenMindParser [![Build Status](https://travis-ci.org/Arlisaha/openMindParser.svg?branch=master)](https://travis-ci.org/Arlisaha/openMindParser) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Arlisaha/openMindParser/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Arlisaha/openMindParser/?b=master) 
+OpenMindParser [![Build Status](https://travis-ci.org/Arlisaha/openMindParser.svg?branch=master)](https://travis-ci.org/Arlisaha/openMindParser) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Arlisaha/openMindParser/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Arlisaha/openMindParser/?b=master) [![Latest Stable Version](https://poser.pugx.org/arlisaha/open-mind-parser/v/stable)](https://packagist.org/packages/arlisaha/open-mind-parser)
 ===================
 This lib has been designed to read openMind (.mm) files.
 
