@@ -1,7 +1,7 @@
 <map version="0.8.1">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
 <node COLOR="#000000" CREATED="1477421861749" ID="Freemind_Link_1656526661" MODIFIED="1477421907851" TEXT="Conduite agressive">
-<font NAME="SansSerif" SIZE="20"/>
+<font NAME="SansSerif" SIZE="20" BOLD="true" ITALIC="true"/>
 <hook NAME="accessories/plugins/AutomaticLayout.properties"/>
 <node COLOR="#0033ff" CREATED="1477576581487" FOLDED="true" ID="Freemind_Link_1480510762" MODIFIED="1478429559742" POSITION="right" TEXT="Constat" VSHIFT="-45">
 <font NAME="SansSerif" SIZE="18"/>

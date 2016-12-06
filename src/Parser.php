@@ -39,8 +39,10 @@ class Parser
 	 * @var Array $fontAvailableAttributes : list of available attributes in XML tag FONT_NODENAME.
 	 */
 	private static $fontAvailableAttributes = [
-		'NAME' => 'fontName',
-		'SIZE' => 'fontSize',
+		'NAME'   => 'fontName',
+		'SIZE'   => 'fontSize',
+		'BOLD'   => 'bold',
+		'ITALIC' => 'italic',
 	];
 	/**
 	 * @const String ICON_NODENAME : a constant with the name of the XML node with data to store for icon matter.
@@ -128,7 +130,7 @@ class Parser
 						$node, 
 						sprintf('openMindParser\Models\Node::set%s', ucfirst($availableAttributes[$attribute->nodeName]))
 					], 
-					$attribute->nodeValue
+					json_decode($attribute->nodeValue) ?: $attribute->nodeValue
 				);
 			}
 		}

@@ -19,11 +19,11 @@ class Node
 	 */
 	private $color;
 	/**
-	 * @var String $created : The timestamp of the creation date of the node.
+	 * @var float $created : The timestamp of the creation date of the node.
 	 */
 	private $created;
 	/**
-	 * @var String $modified : The timestamp of the modified date of the node.
+	 * @var float $modified : The timestamp of the modified date of the node.
 	 */
 	private $modified;
 	/**
@@ -31,11 +31,11 @@ class Node
 	 */
 	private $position;
 	/**
-	 * @var String $vshift : The vshift of the node.
+	 * @var int $vshift : The vshift of the node.
 	 */
 	private $vshift;
 	/**
-	 * @var String $folded : Is the node folded or not.
+	 * @var Bool $folded : Is the node folded or not.
 	 */
 	private $folded;
 	/**
@@ -43,11 +43,19 @@ class Node
 	 */
 	private $text;
 	/**
+	 * @var Bool $bold : Is the text node in bold.
+	 */
+	private $bold;
+	/**
+	 * @var Bool $italic : Is the text node in italic.
+	 */
+	private $italic;
+	/**
 	 * @var String $fontName : The font name of the node.
 	 */
 	private $fontName;
 	/**
-	 * @var String $fontSize : The font size of the node.
+	 * @var int $fontSize : The font size of the node.
 	 */
 	private $fontSize;
 	/**
@@ -65,31 +73,32 @@ class Node
 	
 	/**
 	 * @param DOMElement $domNode : The DOMElement instance of the current Node.
-	 * @param NodeList $children : The children of the node as a collection of Nodes.
-	 * @param Icon $icon : The icon of the node if there is one.
-	 * @param String $id : The unique id of the node.
-	 * @param String $color : The text color of the node.
-	 * @param String $created : The timestamp of the creation date of the node.
-	 * @param String $modified : The timestamp of the modified date of the node.
-	 * @param String $position : The relative position of the node.
-	 * @param String $vshift : The vshift of the node.
-	 * @param String $folded : Is the node folded or not.
-	 * @param String $text : The text of the node.
-	 * @param String $fontName : The font name of the current Node.
-	 * @param String $fontSize : The font size of the node.
-	 * @param Icon $icon : The icon of the node if there is one.
-	 * @param NodeList $children : The children of the node as a collection of Nodes.
-	 * @param DOMElement $domNode : The DOMElement instance of the current Node.
+	 * @param NodeList $children  : The children of the node as a collection of Nodes.
+	 * @param Icon $icon          : The icon of the node if there is one.
+	 * @param String $id          : The unique id of the node.
+	 * @param String $color       : The text color of the node.
+	 * @param float $created     : The timestamp of the creation date of the node.
+	 * @param float $modified    : The timestamp of the modified date of the node.
+	 * @param String $position    : The relative position of the node.
+	 * @param int $vshift      : The vshift of the node.
+	 * @param Bool $folded      : Is the node folded or not.
+	 * @param String $text        : The text of the node.
+	 * @param Bool $bold          : Is the text node in bold.
+	 * @param Bool $italic        : Is the text node in italic.
+	 * @param String $fontName    : The font name of the current Node.
+	 * @param int $fontSize    : The font size of the node.
 	 */
-	public function __construct(DOMElement $domNode = null, NodeList $children = null, Icon $icon = null, $id = null, $color = null, $created = null, $modified = null, $position = null, $vshift = null, $folded = null, $text = null, $fontName = null, $fontSize = null) {
+	public function __construct(DOMElement $domNode = null, NodeList $children = null, Icon $icon = null, $id = null, $color = null, $created = null, $modified = null, $position = null, $vshift = null, $folded = null, $text = null, $bold = null, $italic = null, $fontName = null, $fontSize = null) {
 		$this->id = $id;
 		$this->color = $color;
 		$this->created = $created;
 		$this->modified = $modified;
 		$this->position = $position;
 		$this->vshift = $vshift;
-		$this->folded = $folded;
+		$this->folded = $folded ? true : false;
 		$this->text = $text;
+		$this->bold = $bold ? true : false;
+		$this->italic = $italic ? true : false;
 		$this->fontName = $fontName;
 		$this->fontSize = $fontSize;
 		$this->icon = $icon;
@@ -136,7 +145,7 @@ class Node
 	/**
 	 * Return the created timestamp of the current node.
 	 * 
-	 * @return String : The node created timestamp.
+	 * @return float : The node created timestamp.
 	 */
 	public function getCreated() {
 		return $this->created;
@@ -145,7 +154,7 @@ class Node
 	/**
 	 * Set the created timestamp of the current node.
 	 * 
-	 * @param String $created : The node created timestamp.
+	 * @param float $created : The node created timestamp.
 	 */
 	public function setCreated($created) {
 		$this->created = $created;
@@ -154,7 +163,7 @@ class Node
 	/**
 	 * Return the modified timestamp of the current node.
 	 * 
-	 * @return String : The node modified timestamp.
+	 * @return float : The node modified timestamp.
 	 */
 	public function getModified() {
 		return $this->modified;
@@ -163,7 +172,7 @@ class Node
 	/**
 	 * Set the modified timestamp of the current node.
 	 * 
-	 * @param String $modified : The node modified timestamp.
+	 * @param float $modified : The node modified timestamp.
 	 */
 	public function setModified($modified) {
 		$this->modified = $modified;
@@ -190,7 +199,7 @@ class Node
 	/**
 	 * Return the vshift value of the current node.
 	 * 
-	 * @return String : The node vshift value.
+	 * @return int : The node vshift value.
 	 */
 	public function getVshift() {
 		return $this->vshift;
@@ -199,7 +208,7 @@ class Node
 	/**
 	 * Set the vshift value of the current node.
 	 * 
-	 * @param String $vshift : The node vshift value.
+	 * @param int $vshift : The node vshift value.
 	 */
 	public function setVshift($vshift) {
 		$this->vshift = $vshift;
@@ -220,7 +229,7 @@ class Node
 	 * @param Bool $folded
 	 */
 	public function setFolded($folded) {
-		$this->folded = $folded;
+		$this->folded = $folded ? true : false;
 	}
 	
 	/**
@@ -269,9 +278,45 @@ class Node
 	}
 	
 	/**
+	 * Return if the text node is bold.
+	 * 
+	 * @return Bool : If the text is bold or not.
+	 */
+	public function isBold() {
+		return $this->bold;
+	}
+	
+	/**
+	 * Set if the text node is bold.
+	 * 
+	 * @param Bool $bold : If the text must be bold or not.
+	 */
+	public function setBold($bold) {
+		$this->bold = $bold ? true : false;
+	}
+	
+	/**
+	 * Return if the text node is italic.
+	 * 
+	 * @return Bool : If the text is italic or not.
+	 */
+	public function isItalic() {
+		return $this->italic;
+	}
+	
+	/**
+	 * Set if the text node is italic.
+	 * 
+	 * @param Bool $italic : If the text must be italic or not.
+	 */
+	public function setItalic($italic) {
+		$this->italic = $italic ? true : false;
+	}
+	
+	/**
 	 * Return the font size of the current node.
 	 * 
-	 * @return String : The node font size.
+	 * @return int : The node font size.
 	 */
 	public function getFontSize() {
 		return $this->fontSize;
@@ -280,7 +325,7 @@ class Node
 	/**
 	 * Set the font size of the current node.
 	 * 
-	 * @param String $fontSize : The node font size.
+	 * @param int $fontSize : The node font size.
 	 */
 	public function setFontSize($fontSize) {
 		$this->fontSize = $fontSize;

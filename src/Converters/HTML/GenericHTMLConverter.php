@@ -29,6 +29,10 @@ class GenericHTMLConverter extends AbstractConverter
 	 */
 	const MAIN_TAG_MERGE_STYLE = 'merge_style'; 
 	/**
+	 * String MAIN_TAG_MERGE_STYLE : An option key name for a boolean to choose if texts set as bold and/or italic in the document will be set as it.
+	 */
+	const MAIN_TAG_MERGE_DECORATION = 'merge_decoration'; 
+	/**
 	 * String MAIN_ICON_KEY : An option key name for the icon tag to use.
 	 */
 	const MAIN_ICON_KEY = 'icon'; 
@@ -58,20 +62,21 @@ class GenericHTMLConverter extends AbstractConverter
 	 * @var Array $options : The options for the conversion. 
 	 * It must follow this filling : 
 	 * [
-	 * 		MAIN_TAG_KEY         =>
+	 * 		MAIN_TAG_KEY              =>
 	 * 			[
-	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
+	 * 				TAG_KEY        => 'First wrapping HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
 	 * 			[
-	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
+	 * 				TAG_KEY        => 'Second wrapping HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
 	 * 			[
-	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
+	 * 				TAG_KEY        => 'Third wrapping HTML tag to use (ul, div, ...) (optionnal)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
-	 * 		MAIN_TAG_MERGE_STYLE =>  A boolean to choose if document fonts and colors will be used in HTML rendering (true by default),
+	 * 		MAIN_TAG_MERGE_STYLE      =>  A boolean to choose if document fonts and colors will be used in HTML rendering (true by default),
+	 * 		MAIN_TAG_MERGE_DECORATION =>  A boolean to choose if texts set as bold and/or italic in the document will be set as it. (true by default),
 	 * 		MAIN_ICON_KEY        => [
 	 * 			DISPLAY_ICON_KEY => boolean determining if the icons must be displayed or not,
 	 * 			PATH_ICON_KEY    => [
@@ -100,20 +105,21 @@ class GenericHTMLConverter extends AbstractConverter
 	 * @var Array $options : The options for the conversion. 
 	 * It must follow this filling : 
 	 * [
-	 * 		MAIN_TAG_KEY         =>
+	 * 		MAIN_TAG_KEY              =>
 	 * 			[
-	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
+	 * 				TAG_KEY        => 'First wrapping HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
 	 * 			[
-	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
+	 * 				TAG_KEY        => 'Second wrapping HTML tag to use (ul, div, ...)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
 	 * 			[
-	 * 				TAG_KEY        => 'HTML tag to use (ul, div, ...)',
+	 * 				TAG_KEY        => 'Third wrapping HTML tag to use (ul, div, ...) (optionnal)',
 	 * 				ATTRIBUTES_KEY => ['attribute name (class, id, href, ...)' => 'attribute value', ...]
 	 * 			],
-	 * 		MAIN_TAG_MERGE_STYLE =>  A boolean to choose if document fonts and colors will be used in HTML rendering (true by default),
+	 * 		MAIN_TAG_MERGE_STYLE      =>  A boolean to choose if document fonts and colors will be used in HTML rendering (true by default),
+	 * 		MAIN_TAG_MERGE_DECORATION =>  A boolean to choose if texts set as bold and/or italic in the document will be set as it. (true by default),
 	 * 		MAIN_ICON_KEY        => [
 	 * 			DISPLAY_ICON_KEY => boolean determining if the icons must be displayed or not,
 	 * 			PATH_ICON_KEY    => [
@@ -126,12 +132,13 @@ class GenericHTMLConverter extends AbstractConverter
 	 * @return DOMDocument $domDocument : The DOMDocument instance created with the HTML.
 	 */
 	private function buildHTMLTreeFromNode(DOMDocument $document, Node $node, array $options) {
+		//Create the first wrapping DOMElement.
 		$domElementA = $this->buildElement($document, $options[self::MAIN_TAG_KEY][0]);
 		
+		//Merge font size and font family to add inside the second wrapping DOMElement.
 		if(!array_key_exists(self::MAIN_TAG_MERGE_STYLE, $options) || !is_bool($options[self::MAIN_TAG_MERGE_STYLE])) {
 			$options[self::MAIN_TAG_MERGE_STYLE] = true;
 		}
-		
 		if($options[self::MAIN_TAG_MERGE_STYLE]) {
 			$options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY] = array_merge(
 				$options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY], 
@@ -139,12 +146,14 @@ class GenericHTMLConverter extends AbstractConverter
 					'style' => 'color:'.$node->getColor().';'.
 							   ($node->getFontName() ? 'font-family:'.$node->getFontName().';' : '').
 							   ($node->getFontSize() ? 'font-size:'.$node->getFontSize().';' : ''),
-					'id'    => $node->getId(),
 				]
 			);
 		}
+		$options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY] = array_merge($options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY], ['id' => $node->getId(),]);
+		//Create the second wrapping DOMElement whom will be append to the first one
 		$domElementB = $this->buildElement($document, $options[self::MAIN_TAG_KEY][1]);
 		
+		//Set the icon in an img tag whom will be wrapped in the second DOMElement.
 		if(!empty($node->getIcon()) && $options[self::MAIN_ICON_KEY][self::DISPLAY_ICON_KEY]) {
 			$icon = $node->getIcon();
 			$domElementImg = $document->createElement('img');
@@ -167,7 +176,27 @@ class GenericHTMLConverter extends AbstractConverter
 			$domElementB->appendChild($domElementImg);
 		}
 		
+		//Define the TextNode to append to the current wrapping elements.
 		$text = $document->createTextNode($node->getText());
+		
+		//Bold an italic in old HTML way in order not to spread it to all children.
+		if(!array_key_exists(self::MAIN_TAG_MERGE_DECORATION, $options) || !is_bool($options[self::MAIN_TAG_MERGE_DECORATION])) {
+			$options[self::MAIN_TAG_MERGE_DECORATION] = true;
+		}
+		if($options[self::MAIN_TAG_MERGE_DECORATION]) {
+			if($node->isBold()) {
+				$bTag = $document->createElement('b');
+				$bTag->appendChild($text);
+				$text = $bTag;
+			}
+			if($node->isItalic()) {
+				$iTag = $document->createElement('i');
+				$iTag->appendChild($text);
+				$text = $iTag;
+			}
+		}
+		
+		//Append text node (real one or the one already wrapped inside <b> and/or <i> tags)
 		if(isset($options[self::MAIN_TAG_KEY][2])) {
 			$domElementC = $this->buildElement($document, $options[self::MAIN_TAG_KEY][2]);
 			$domElementC->appendChild($text);
