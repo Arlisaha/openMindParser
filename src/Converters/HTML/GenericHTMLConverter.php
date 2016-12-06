@@ -101,7 +101,7 @@ class GenericHTMLConverter extends AbstractConverter
 	 * Each text will be wrap in at least two HTML tags (<ul><li>, <div><span>, ...) and at most three tags (<ul><li><span>, ...).
 	 * The style stored in the Node instance (color, font name and font size) will be applied on the second tag and override the "style" attribute if one is given.
 	 * 
-	 * @var Document $document : The document instance to convert.
+	 * @var DOMDocument $document : The document instance to convert.
 	 * @var Array $options : The options for the conversion. 
 	 * It must follow this filling : 
 	 * [
