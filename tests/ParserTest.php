@@ -56,16 +56,16 @@ class ParserTest extends TestCase
 		$domDocument = new DOMDocument();
 		
 		$domDocument->loadXML($this->node02);
-		$node02 = new Node($domDocument->documentElement, new NodeList(), new Icon('button_ok'), '0_2', '#020202', 1477421861749, 1477421861749, 'right', -45, true, 'node_0_2', false, false, 'SansSerif', 16);
+		$node02 = new Node($domDocument->documentElement, new NodeList(), new Icon('button_ok'), '0_2', '#020202', '1477421861749', '1477421861749', 'right', -45, true, 'node_0_2', false, false, 'SansSerif', 16);
 		
 		$domDocument->loadXML($this->node011);
-		$node011 = new Node($domDocument->documentElement, null, null, '0_1_1', '#011011', 1477421861749, 1477421861749, null, null, false, 'node_0_1_1', false, false, null, null);
+		$node011 = new Node($domDocument->documentElement, null, null, '0_1_1', '#011011', '1477421861749', '1477421861749', null, null, false, 'node_0_1_1', false, false, null, null);
 				
 		$domDocument->loadXML($this->node01);
-		$node01 = new Node($domDocument->documentElement, new NodeLIst([$node011]), null, '0_1', '#010101', 1477421861749, 1477421861749, 'right', -45, true, 'node_0_1', false, false, 'SansSerif', 18);
+		$node01 = new Node($domDocument->documentElement, new NodeLIst([$node011]), null, '0_1', '#010101', '1477421861749', '1477421861749', 'right', -45, true, 'node_0_1', false, false, 'SansSerif', 18);
 				
 		$domDocument->loadXML($this->node0);
-		$node0 = new Node($domDocument->documentElement, new NodeLIst([$node01, $node02]), null, '0', '#000000', 1477421861749, 1477421861749, null, null, false, 'node_0', true, true, 'SansSerif', 20);
+		$node0 = new Node($domDocument->documentElement, new NodeLIst([$node01, $node02]), null, '0', '#000000', '1477421861749', '1477421861749', null, null, false, 'node_0', true, true, 'SansSerif', 20);
 		
 		$domDocument->load($this->rightFilePath);
 		$awaitedDocument = new Document($domDocument, $node0, $this->rightFilePath, 'test_sample.mm', filesize($this->rightFilePath));

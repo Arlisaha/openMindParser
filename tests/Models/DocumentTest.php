@@ -35,8 +35,8 @@ class DocumentTest extends TestCase
 			'rootNode' => [
 				'id'       => '0',
 				'color'    => '#000000', 
-				'created'  => 1477421861749,
-				'modified' => 1477421861749,
+				'created'  => '1477421861749',
+				'modified' => '1477421861749',
 				'position' => null,
 				'vshift'   => null,
 				'folded'   => false,
@@ -50,8 +50,8 @@ class DocumentTest extends TestCase
 					[	
 						'id'       => '0_1',
 						'color'    => '#010101', 
-						'created'  => 1477421861749,
-						'modified' => 1477421861749,
+						'created'  => '1477421861749',
+						'modified' => '1477421861749',
 						'position' => 'right',
 						'vshift'   => -45,
 						'folded'   => true,
@@ -65,8 +65,8 @@ class DocumentTest extends TestCase
 							[
 								'id'       => '0_1_1',
 								'color'    => '#011011', 
-								'created'  => 1477421861749,
-								'modified' => 1477421861749,
+								'created'  => '1477421861749',
+								'modified' => '1477421861749',
 								'position' => null,
 								'vshift'   => null,
 								'folded'   => false,
@@ -83,8 +83,8 @@ class DocumentTest extends TestCase
 					[
 						'id'       => '0_2',
 						'color'    => '#020202', 
-						'created'  => 1477421861749,
-						'modified' => 1477421861749,
+						'created'  => '1477421861749',
+						'modified' => '1477421861749',
 						'position' => 'right',
 						'vshift'   => -45,
 						'folded'   => true,

@@ -19,11 +19,11 @@ class Node
 	 */
 	private $color;
 	/**
-	 * @var float $created : The timestamp of the creation date of the node.
+	 * @var String $created : The timestamp of the creation date of the node.
 	 */
 	private $created;
 	/**
-	 * @var float $modified : The timestamp of the modified date of the node.
+	 * @var String $modified : The timestamp of the modified date of the node.
 	 */
 	private $modified;
 	/**
@@ -77,8 +77,8 @@ class Node
 	 * @param Icon $icon          : The icon of the node if there is one.
 	 * @param String $id          : The unique id of the node.
 	 * @param String $color       : The text color of the node.
-	 * @param float $created     : The timestamp of the creation date of the node.
-	 * @param float $modified    : The timestamp of the modified date of the node.
+	 * @param String $created     : The timestamp of the creation date of the node.
+	 * @param String $modified    : The timestamp of the modified date of the node.
 	 * @param String $position    : The relative position of the node.
 	 * @param int $vshift      : The vshift of the node.
 	 * @param Bool $folded      : Is the node folded or not.
@@ -91,8 +91,8 @@ class Node
 	public function __construct(DOMElement $domNode = null, NodeList $children = null, Icon $icon = null, $id = null, $color = null, $created = null, $modified = null, $position = null, $vshift = null, $folded = null, $text = null, $bold = null, $italic = null, $fontName = null, $fontSize = null) {
 		$this->id = $id;
 		$this->color = $color;
-		$this->created = $created;
-		$this->modified = $modified;
+		$this->created = (string) $created;
+		$this->modified = (string) $modified;
 		$this->position = $position;
 		$this->vshift = $vshift;
 		$this->folded = $folded ? true : false;
@@ -145,7 +145,7 @@ class Node
 	/**
 	 * Return the created timestamp of the current node.
 	 * 
-	 * @return float : The node created timestamp.
+	 * @return String : The node created timestamp.
 	 */
 	public function getCreated() {
 		return $this->created;
@@ -154,16 +154,16 @@ class Node
 	/**
 	 * Set the created timestamp of the current node.
 	 * 
-	 * @param float $created : The node created timestamp.
+	 * @param String $created : The node created timestamp.
 	 */
 	public function setCreated($created) {
-		$this->created = $created;
+		$this->created = (string) $created;
 	}
 	
 	/**
 	 * Return the modified timestamp of the current node.
 	 * 
-	 * @return float : The node modified timestamp.
+	 * @return String : The node modified timestamp.
 	 */
 	public function getModified() {
 		return $this->modified;
@@ -172,10 +172,10 @@ class Node
 	/**
 	 * Set the modified timestamp of the current node.
 	 * 
-	 * @param float $modified : The node modified timestamp.
+	 * @param String $modified : The node modified timestamp.
 	 */
 	public function setModified($modified) {
-		$this->modified = $modified;
+		$this->modified = (string) $modified;
 	}
 	
 	/**

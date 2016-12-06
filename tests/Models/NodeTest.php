@@ -21,8 +21,8 @@ class NodeTest extends TestCase
 	public function testConstruct() {
 		$this->assertAttributeInternalType('string', 'id', $this->node);
 		$this->assertAttributeInternalType('string', 'color', $this->node);
-		$this->assertAttributeInternalType('float', 'created', $this->node);
-		$this->assertAttributeInternalType('float', 'modified', $this->node);
+		$this->assertAttributeInternalType('string', 'created', $this->node);
+		$this->assertAttributeInternalType('string', 'modified', $this->node);
 		$this->assertAttributeInternalType('string', 'position', $this->node);
 		$this->assertAttributeInternalType('int', 'vshift', $this->node);
 		$this->assertAttributeInternalType('bool', 'folded', $this->node);
@@ -43,8 +43,8 @@ class NodeTest extends TestCase
 		$awaitedResult = [
 			'id'       => '0_2',
 			'color'    => '#020202', 
-			'created'  => 1477421861749,
-			'modified' => 1477421861749,
+			'created'  => '1477421861749',
+			'modified' => '1477421861749',
 			'position' => 'right',
 			'vshift'   => -45,
 			'folded'   => true,
