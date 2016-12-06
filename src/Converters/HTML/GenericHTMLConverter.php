@@ -5,7 +5,6 @@ namespace OpenMindParser\Converters\HTML;
 use OpenMindParser\Converters\Model\AbstractConverter;
 use OpenMindParser\Models\Document;
 use OpenMindParser\Models\Node;
-use OpenMindParser\Parser;
 use \DOMDocument;
 use \InvalidArgumentException;
 
@@ -129,7 +128,7 @@ class GenericHTMLConverter extends AbstractConverter
 	 * 		],
 	 * ]. The first two are mandatory.
 	 * 
-	 * @return DOMDocument $domDocument : The DOMDocument instance created with the HTML.
+	 * @return \DOMElement $domDocument : The DOMDocument instance created with the HTML.
 	 */
 	private function buildHTMLTreeFromNode(DOMDocument $document, Node $node, array $options) {
 		//Create the first wrapping DOMElement.
@@ -201,8 +200,7 @@ class GenericHTMLConverter extends AbstractConverter
 			$domElementC = $this->buildElement($document, $options[self::MAIN_TAG_KEY][2]);
 			$domElementC->appendChild($text);
 			$domElementB->appendChild($domElementC);
-		}
-		else {
+		} else {
 			$domElementB->appendChild($text);
 		}
 		
@@ -221,7 +219,7 @@ class GenericHTMLConverter extends AbstractConverter
 	 * @param DOMDocument $document : The current DOMDocument in creation with the HTML tree.
 	 * @param array $description : The array describing the tag to create.
 	 * 
-	 * @return DOMElement $domElement : The created DOMElement.
+	 * @return \DOMElement $domElement : The created DOMElement.
 	 */
 	private function buildElement(DOMDocument $document, array $description) {
 		$domElement = $document->createElement($description[self::TAG_KEY]);

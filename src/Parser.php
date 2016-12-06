@@ -98,11 +98,9 @@ class Parser
 		foreach($domNode->childNodes as $childNode) {
 			if($childNode->nodeName === self::NODE_NODENAME) {
 				$children->add($this->fillNode($childNode));
-			}
-			elseif($childNode->nodeName === self::FONT_NODENAME) {
+			} elseif($childNode->nodeName === self::FONT_NODENAME) {
 				$this->fillNodeAttributes($childNode->attributes, self::$fontAvailableAttributes, $node);
-			}
-			elseif($childNode->nodeName === self::ICON_NODENAME) {
+			} elseif($childNode->nodeName === self::ICON_NODENAME) {
 				foreach($childNode->attributes as $attribute) {
 					if(array_key_exists($attribute->nodeName, self::$iconAvailableAttributes)) {
 						$node->setIcon(new Icon($attribute->nodeValue));
@@ -119,7 +117,7 @@ class Parser
 	/**
 	 * For each attribute whom the name is the keys of $availableAttributes, its value will be put in the matching attribute.
 	 * 
-	 * @param DOMNamedNodeMap $nodeAttributes : The list of attributes of the current node to fill the Node object.
+	 * @param DOMNamedNodeMap $nodeAtributes : The list of attributes of the current node to fill the Node object.
 	 * @param array $availableAttributes : One of the static array of this class to describe the list of known attributes.
 	 * @param Node $node : The Node object to fill in.
 	 */

@@ -5,7 +5,6 @@ namespace OpenMindParser\Models;
 use \DOMNode;
 use \DOMElement;
 use \DOMNamedNodeMap;
-use OpenMindParser\Exceptions\InvalidNodeNameException;
 
 /*Object that represent a Node as the tag element in the openMind file.*/
 class Node 
@@ -352,7 +351,6 @@ class Node
 	/**
 	 * Return the list of children of the current node.
 	 * 
-	 * @param NodeList $children : The list of children node.
 	 */
 	public function getChildren() {
 		return $this->children;
