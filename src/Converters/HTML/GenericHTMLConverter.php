@@ -131,13 +131,13 @@ class GenericHTMLConverter extends AbstractConverter
 	 * @return \DOMElement $domDocument : The DOMDocument instance created with the HTML.
 	 */
 	private function buildHTMLTreeFromNode(DOMDocument $document, Node $node, array $options) {
+		//Set optional values
+		$this->fillOptionalOptions($options);
+		
 		//Create the first wrapping DOMElement.
 		$domElementA = $this->buildElement($document, $options[self::MAIN_TAG_KEY][0]);
 		
 		//Merge font size and font family to add inside the second wrapping DOMElement.
-		if(!array_key_exists(self::MAIN_TAG_MERGE_STYLE, $options) || !is_bool($options[self::MAIN_TAG_MERGE_STYLE])) {
-			$options[self::MAIN_TAG_MERGE_STYLE] = true;
-		}
 		if($options[self::MAIN_TAG_MERGE_STYLE]) {
 			$options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY] = array_merge(
 				$options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY], 
@@ -148,7 +148,10 @@ class GenericHTMLConverter extends AbstractConverter
 				]
 			);
 		}
-		$options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY] = array_merge($options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY], ['id' => $node->getId(),]);
+		
+		//Add the node document id to the attributes.
+		$options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY] = array_merge($options[self::MAIN_TAG_KEY][1][self::ATTRIBUTES_KEY], ['id' => $node->getId()]);
+		
 		//Create the second wrapping DOMElement whom will be append to the first one
 		$domElementB = $this->buildElement($document, $options[self::MAIN_TAG_KEY][1]);
 		
@@ -179,9 +182,6 @@ class GenericHTMLConverter extends AbstractConverter
 		$text = $document->createTextNode($node->getText());
 		
 		//Bold an italic in old HTML way in order not to spread it to all children.
-		if(!array_key_exists(self::MAIN_TAG_MERGE_DECORATION, $options) || !is_bool($options[self::MAIN_TAG_MERGE_DECORATION])) {
-			$options[self::MAIN_TAG_MERGE_DECORATION] = true;
-		}
 		if($options[self::MAIN_TAG_MERGE_DECORATION]) {
 			if($node->isBold()) {
 				$bTag = $document->createElement('b');
@@ -211,6 +211,19 @@ class GenericHTMLConverter extends AbstractConverter
 		}
 		
 		return $domElementA;
+	}
+	
+	/**
+	 * Set optionals values for merging style and decoration if they are not.
+	 * 
+	 * @param array &$options : The options array passed as reference.
+	 */
+	private function fillOptionalOptions(array &$options) {
+		foreach([self::MAIN_TAG_MERGE_DECORATION, self::MAIN_TAG_MERGE_STYLE] as $key) {
+			if(!array_key_exists($key, $options) || !is_bool($options[$key])) {
+				$options[$key] = true;
+			}
+		}
 	}
 	
 	/**
