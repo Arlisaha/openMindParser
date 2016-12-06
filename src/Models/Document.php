@@ -150,8 +150,7 @@ class Document
 		$sorter = function($value, $key) use(&$array) {
 			if($value instanceof Node) {
 				$value = $value->toArray();
-			}
-			elseif($value instanceof DOMDocument) {
+			} elseif($value instanceof DOMDocument) {
 				return;
 			}
 			$array[$key] = $value;
