@@ -8,7 +8,7 @@ use OpenMindParser\Models\Node;
 use \DOMDocument;
 use \InvalidArgumentException;
 
-/*A singleton to convert a document tree (object Document) in a HTML tree following few options.*/
+/*A class to convert a document tree (object Document) in a HTML tree following few options.*/
 class GenericHTMLConverter extends AbstractConverter
 { 
 	/**
